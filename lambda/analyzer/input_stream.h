@@ -1,7 +1,5 @@
 #pragma once
-
-#include "../../framework.h"
-
+#include "../framework.h"
 void input_stream_init(const std::string* input);
 void input_stream_clean();
 

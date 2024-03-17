@@ -10,6 +10,17 @@
 
 ***
 
+## 安装
+
+使用下列命令来构建解释器程序，解释器程序将存放在 `../../build` 文件夹。
+```
+git clone https://github.com/shichengv/name-less-language
+cd name-less-language/lambda
+make install
+cd ../../build
+ls
+```
+
 ## 介绍
 
 **name-less** 语言作为一门简单的"函数式"语言，C语言语法风格的Scheme语言(bushi)。

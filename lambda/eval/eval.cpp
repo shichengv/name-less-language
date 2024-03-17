@@ -255,7 +255,7 @@ static Value* eval_assignment(TokenAssign* exp, Environment* env)
 	TokenLRvalue* lrvalue = exp->lrvalue;
 	if (lrvalue->left->flag != TOKEN_FLAG_IS_VAR)
 	{
-		std::wstring error = L"赋值语句的左侧必须为一个变量~";
+		std::wstring error = L"\x8d4b\x503c\x8bed\x53e5\x7684\x5de6\x4fa7\x5fc5\x987b\x4e3a\x4e00\x4e2a\x53d8\x91cf\xff5e\x28\x2220\x30fb\x3c9\x3c\x20\x29\x2312\x266a";
 		throw_eval_exception(error);
 	}
 	/*	

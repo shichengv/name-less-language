@@ -41,7 +41,12 @@ static void construct_token_binary(TokenBinary* body, std::string& ast)
 {
 	HTAB
 
+#ifdef WINDOWS
 		sprintf_s(buffer, "\"operator\": \"%s\", \n", body->op->c_str());
+#else
+		sprintf(buffer, "\"operator\": \"%s\", \n", body->op->c_str());
+#endif
+
 	ast += buffer;
 
 	construct_token_lrvalue(body->lrvalue, ast);
@@ -188,7 +193,12 @@ static void construct_token(Token* token, std::string& ast)
 {
 	HTAB
 
+#ifdef WINDOWS
 	sprintf_s(buffer, "\"type\": \"%s\", \n", token->type);
+#else
+	sprintf(buffer, "\"type\": \"%s\", \n", token->type);
+#endif
+
 	ast += buffer;
 
 	if ((token->flag == TOKEN_FLAG_IS_ASSIGN) || token->flag == TOKEN_FLAG_IS_BINARY)
@@ -198,7 +208,11 @@ static void construct_token(Token* token, std::string& ast)
 	else if (token->flag == TOKEN_FLAG_IS_STRING || token->flag == TOKEN_FLAG_IS_NUM || token->flag == TOKEN_FLAG_IS_VAR)
 	{
 		HTAB
+#ifdef WINDOWS
 			sprintf_s(buffer, "\"value\": \"%s\"\n", token->value.str->c_str());
+#else
+			sprintf(buffer, "\"value\": \"%s\"\n", token->value.str->c_str());
+#endif
 		ast += buffer;
 	}
 	else if (token->flag == TOKEN_FLAG_IS_BOOL)
@@ -252,7 +266,11 @@ static void construct_token(Token* token, std::string& ast)
 	else if (token->flag == TOKEN_FLAG_IS_DEF)
 	{
 		HTAB
+#ifdef WINDOWS
 			sprintf_s(buffer, "\"value\": {\n");
+#else
+			sprintf(buffer, "\"value\": {\n");
+#endif
 		ast += buffer;
 		deepin++;
 		construct_token_let((TokenDef*)token->value.body, ast);

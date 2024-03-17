@@ -1,12 +1,14 @@
 #pragma once
 
-#define WINDOWS
+// #define WINDOWS
+#define LINUX
 
 // 测试，不定义Release宏
 #define RELEASE
 
 
 
+// C++ 头文件
 #include <iostream>
 #include <fstream>
 #include <unordered_map>
@@ -15,6 +17,11 @@
 #include <algorithm>
 #include <regex>
 
+// C 头文件
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
 
 #ifdef WINDOWS
 

@@ -133,10 +133,11 @@ static void skip_op(const char* op)
 		input_croak(error);
 	}
 }
-static void unexpected()
+static Token* unexpected()
 {
 	std::wstring error = L"未定义的Token";
 	input_croak(error);
+	return NULL;
 }
 
 static Token* maybe_binary(Token* left, int my_prec, bool *skip_expression_separator)
@@ -539,7 +540,7 @@ static Token* parse_atom(bool* skip_expression_separator)
 			return token;
 
 
-		unexpected();
+		return unexpected();
 	};
 	return maybe_call(expr, skip_expression_separator);
 }

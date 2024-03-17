@@ -1,9 +1,9 @@
-#include "read_file.h"
-void read_file(std::string* data)
+#include "command.h"
+
+void read_file(std::string& filename, std::string* data)
 {
 	// Create an input stream to the file
-	// std::ifstream file("example\\test.nl");
-	std::ifstream file("example\\hello.nl");
+	std::ifstream file(filename);
 	//std::ifstream file("object_oriented_programming.rcl");
 	if (file.is_open()) {
 		// Read the file line by line and append to the content

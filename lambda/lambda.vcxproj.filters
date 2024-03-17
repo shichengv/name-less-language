@@ -224,9 +224,6 @@
     <ClInclude Include="configure\command.h">
       <Filter>头文件\configure</Filter>
     </ClInclude>
-    <ClInclude Include="configure\read_file.h">
-      <Filter>头文件\configure</Filter>
-    </ClInclude>
     <ClInclude Include="configure\error_log.h">
       <Filter>头文件\configure</Filter>
     </ClInclude>

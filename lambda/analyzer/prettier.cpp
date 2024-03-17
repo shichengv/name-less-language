@@ -296,7 +296,7 @@ static void construct_token_prog(std::vector<Token*>* progs, std::string& ast)
 }
 
 
-void construct_ast(Token* root)
+std::string* construct_ast(Token* root)
 {
 	std::string* p_ast = DBG_NEW std::string;
 	std::string& ast = *p_ast;
@@ -313,5 +313,5 @@ void construct_ast(Token* root)
 	HTAB
 		ast += "}\n";
 
-	delete p_ast;
+	return p_ast;
 }

@@ -2,6 +2,9 @@
 
 #define WINDOWS
 
+// ≤‚ ‘£¨≤ª∂®“ÂRelease∫Í
+#define RELEASE
+
 
 
 #include <iostream>

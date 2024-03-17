@@ -180,7 +180,6 @@
     <ClInclude Include="analyzer\token_stream.h" />
     <ClInclude Include="configure\command.h" />
     <ClInclude Include="configure\error_log.h" />
-    <ClInclude Include="configure\read_file.h" />
     <ClInclude Include="eval\env.h" />
     <ClInclude Include="eval\value\value.h" />
     <ClInclude Include="eval\value\value_atom.h" />

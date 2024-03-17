@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{3fa6ee7b-f73e-46cb-80f5-419ff63541fa}</ProjectGuid>
+    <RootNamespace>lambda</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>lambda</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="analyzer\input_stream.cpp" />
+    <ClCompile Include="analyzer\parser.cpp" />
+    <ClCompile Include="analyzer\prettier.cpp" />
+    <ClCompile Include="analyzer\token\token.cpp" />
+    <ClCompile Include="analyzer\token_stream.cpp" />
+    <ClCompile Include="configure\command.cpp" />
+    <ClCompile Include="configure\error_log.cpp" />
+    <ClCompile Include="configure\read_file.cpp" />
+    <ClCompile Include="eval\env.cpp" />
+    <ClCompile Include="eval\eval.cpp" />
+    <ClCompile Include="lambda.cpp" />
+    <ClCompile Include="stdlib\built-in\built_in.cpp" />
+    <ClCompile Include="stdlib\built-in\built_in_error.cpp" />
+    <ClCompile Include="stdlib\built-in\built_in_exit.cpp" />
+    <ClCompile Include="stdlib\built-in\built_in_typeid.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_caar.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_cadr.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_car.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_cdr.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_pair.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_set_car.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_set_cdr.cpp" />
+    <ClCompile Include="stdlib\io\io.cpp" />
+    <ClCompile Include="stdlib\io\io_print.cpp" />
+    <ClCompile Include="stdlib\stdlib.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="analyzer\input_stream.h" />
+    <ClInclude Include="analyzer\parser.h" />
+    <ClInclude Include="analyzer\token\token.h" />
+    <ClInclude Include="analyzer\token\token_assign.h" />
+    <ClInclude Include="analyzer\token\token_atom.h" />
+    <ClInclude Include="analyzer\token\token_binary.h" />
+    <ClInclude Include="analyzer\token\token_branch.h" />
+    <ClInclude Include="analyzer\token\token_calls.h" />
+    <ClInclude Include="analyzer\token\token_def.h" />
+    <ClInclude Include="analyzer\token\token_if.h" />
+    <ClInclude Include="analyzer\token\token_lambda.h" />
+    <ClInclude Include="analyzer\token\token_lrvalue.h" />
+    <ClInclude Include="analyzer\token_stream.h" />
+    <ClInclude Include="configure\command.h" />
+    <ClInclude Include="configure\error_log.h" />
+    <ClInclude Include="configure\read_file.h" />
+    <ClInclude Include="eval\env.h" />
+    <ClInclude Include="eval\value\value.h" />
+    <ClInclude Include="eval\value\value_atom.h" />
+    <ClInclude Include="eval\value\value_lambda.h" />
+    <ClInclude Include="eval\value\value_pair.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="stdlib\built-in\built_in.h" />
+    <ClInclude Include="stdlib\fs\fs.h" />
+    <ClInclude Include="stdlib\io\io.h" />
+    <ClInclude Include="stdlib\stdlib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="example\error.nl" />
+    <None Include="example\hello.nl" />
+    <None Include="example\machine-with-register\assemble.nl" />
+    <None Include="example\machine-with-register\machine.nl" />
+    <None Include="example\object_oriented_programming.nl" />
+    <None Include="example\pair.nl" />
+    <None Include="example\queue.nl" />
+    <None Include="example\table.nl" />
+    <None Include="example\test.nl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -153,11 +153,13 @@
     <ClCompile Include="stdlib\built-in\built_in_error.cpp" />
     <ClCompile Include="stdlib\built-in\built_in_exit.cpp" />
     <ClCompile Include="stdlib\built-in\built_in_typeid.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_append.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_caar.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_cadr.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_car.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_cdr.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_pair.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_set_append.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_set_car.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_set_cdr.cpp" />
     <ClCompile Include="stdlib\io\io.cpp" />

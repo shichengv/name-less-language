@@ -1,5 +1,7 @@
 #include "built_in.h"
 
+extern Value* built_in_append(std::vector<Value*>* args);
+extern Value* built_in_set_append(std::vector<Value*>* args);
 extern Value* built_in_caar(std::vector<Value*>* args);
 extern Value* built_in_cadr(std::vector<Value*>* args);
 extern Value* built_in_exit(std::vector<Value*>* args);
@@ -28,6 +30,12 @@ Value* calls_stdlib_built_in_func(uint64_t offset, std::vector<Value*>* args)
 	case BUILT_IN_SET_CDR:
 		result = built_in_set_cdr(args);
 		break;
+	case BUILT_IN_APPEND:
+		result = built_in_append(args);
+		break;
+	case BUILT_IN_SET_APPEND:
+		result = built_in_set_append(args);
+		break;
 	case BUILT_IN_CAR:
 		result = built_in_car(args);
 		break;
@@ -35,7 +43,7 @@ Value* calls_stdlib_built_in_func(uint64_t offset, std::vector<Value*>* args)
 		result = built_in_caar(args);
 		break;
 	case BUILT_IN_CADR:
-		result = built_in_caar(args);
+		result = built_in_cadr(args);
 		break;
 	case BUILT_IN_CDR:
 		result = built_in_cdr(args);

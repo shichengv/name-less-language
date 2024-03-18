@@ -4,6 +4,12 @@
 #include "value/value.h"
 #include "env.h"
 #include "../configure/error_log.h"
+#ifdef WINDOWS
+#define STR(str)		L##str
+#else	
+#define STR(str)		str
+#endif // WINDOWS
+
 
 extern Value* calls_stdlib_func(uint64_t func_addr, std::vector<Value*>* args_list);
 static Environment* eval_env;
@@ -16,15 +22,56 @@ static Value* eval(Token* exp, Environment* env);
 // evaluate multiple expressions
 static Value* eval_prog(std::vector<Token*>* progs, Environment* env);
 
+static void use_typeid_error(uint8_t flag)
+{
+#ifdef WINDOWS
+	std::wstring typeinfo;
+	std::wstring error;
+#else
+	std::string typeinfo;
+	std::string error;
+#endif // WINDOWS
+
+	switch (flag)
+	{
+	case VALUE_IS_NUM:
+		typeinfo = STR(" 与预期类型不匹配，传入的是 number");
+		break;
+	case VALUE_IS_STRING:
+		typeinfo = STR(" 与预期类型不匹配，传入的是 string");
+		break;
+	case VALUE_IS_LOGICAL:
+		typeinfo = STR(" 与预期类型不匹配，传入的是 bool");
+		break;
+	case VALUE_IS_LAMBDA:
+	case VALUE_IS_STD_FUNC_OFFSET:
+		typeinfo = STR(" 与预期类型不匹配，传入的是 lambda");
+		break;
+	case VALUE_IS_PAIR:
+		typeinfo = STR(" 与预期类型不匹配，传入的是 pair");
+		break;
+	case VALUE_IS_REF:
+		typeinfo = STR(" 与预期类型不匹配，传入的是 ref");
+		break;
+	default:
+		break;
+	}
+#ifdef WINDOWS
+	error = L"\x2044\x2060\x28\x2060\x2044\x2060\xa0\x2060\x2044\x2060\x2022\x2060\x2044\x2060\x2d\x2060\x2044\x2060\x2022\x2060\x2044\x2060\xa0\x2060\x2044\x2060\x29\x2060\x2044\xff0c\x8bb0\x5f97\x68c0\x67e5\x53d8\x91cf\x7c7b\x578b\x5440\xff01";
+	error = error + typeinfo;
+#else
+	error = "\u2044\u2060\u0028\u2060\u2044\u2060\u00a0\u2060\u2044\u2060\u2022\u2060\u2044\u2060\u002d\u2060\u2044\u2060\u2022\u2060\u2044\u2060\u00a0\u2060\u2044\u2060\u0029\u2060\u2044\uff0c\u8bb0\u5f97\u68c0\u67e5\u53d8\u91cf\u7c7b\u578b\u5440\uff01";
+	error = error + typeinfo;
+#endif // WINDOWS
+
+	throw_eval_exception(error);
+
+}
+
 static inline double use_num(Value* value)
 {
 	if (value->flag != VALUE_IS_NUM)
-	{
-		std::string error = "Expected number but got";
-		std::cout << error;
-		throw error;
-		exit(0);
-	}
+		use_typeid_error(value->flag);
 
 	return value->value.number;
 };
@@ -32,25 +79,14 @@ static inline double use_num(Value* value)
 static inline std::string* use_str(Value* value)
 {
 	if (value->flag != VALUE_IS_STRING)
-	{
-		std::string error = "Expected string but got";
-		std::cout << error;
-		throw error;
-		exit(0);
-
-	}
+		use_typeid_error(value->flag);
 	return value->value.str;
 };
 
 static inline uint64_t use_logical(Value* value)
 {
 	if (value->flag != VALUE_IS_LOGICAL)
-	{
-		std::string error = "Expected bool but got";
-		std::cout << error;
-		throw error;
-		exit(0);
-	}
+		use_typeid_error(value->flag);
 	return value->value.logical;
 };
 
@@ -255,7 +291,12 @@ static Value* eval_assignment(TokenAssign* exp, Environment* env)
 	TokenLRvalue* lrvalue = exp->lrvalue;
 	if (lrvalue->left->flag != TOKEN_FLAG_IS_VAR)
 	{
+#ifdef WINDOWS
 		std::wstring error = L"\x8d4b\x503c\x8bed\x53e5\x7684\x5de6\x4fa7\x5fc5\x987b\x4e3a\x4e00\x4e2a\x53d8\x91cf\xff5e\x28\x2220\x30fb\x3c9\x3c\x20\x29\x2312\x266a";
+#else
+		std::string error = "\u8d4b\u503c\u8bed\u53e5\u7684\u5de6\u4fa7\u5fc5\u987b\u4e3a\u4e00\u4e2a\u53d8\u91cf\uff5e\u28\u2220\u30fb\u3c9\u3c\u20\u29\u2312\u266a";
+#endif // WINDOWS
+
 		throw_eval_exception(error);
 	}
 	/*	

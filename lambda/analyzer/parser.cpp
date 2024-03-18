@@ -1,4 +1,4 @@
-ï»¿#include "parser.h"
+#include "parser.h"
 #include "token_stream.h"
 
 #define NO_RETURN_NEXT_TOEKN				Token* tmp = token_next(); if (tmp) delete tmp;
@@ -47,10 +47,10 @@ static bool is_op(const char* op)
 	Token* token = token_peek();
 
 	/*
-		1. å½“å‰çš„tokenä¸èƒ½ä¸ºç©º
-		2. å½“å‰tokençš„ç±»å‹å¿…é¡»ä¸º"op"
-		3. ä¼ å…¥çš„å€¼æ˜¯å¦ä¸ºNULL
-		4. å½“å‰tokençš„å€¼ç­‰äºä¼ å…¥çš„å€¼
+		1. µ±Ç°µÄtoken²»ÄÜÎª¿Õ
+		2. µ±Ç°tokenµÄÀàĞÍ±ØĞëÎª"op"
+		3. ´«ÈëµÄÖµÊÇ·ñÎªNULL
+		4. µ±Ç°tokenµÄÖµµÈÓÚ´«ÈëµÄÖµ
 	*/
 	return token && token->flag == TOKEN_FLAG_IS_OP && (!op || !strcmp(token->value.str->c_str(), op) ) && token;
 }
@@ -58,10 +58,10 @@ static bool is_punc(const char ch)
 {
 	Token* token = token_peek();
 	/*
-		1. å½“å‰çš„tokenä¸èƒ½ä¸ºç©º
-		2. å½“å‰tokençš„ç±»å‹å¿…é¡»ä¸º"punc"
-		3. ä¼ å…¥çš„å€¼ä¸èƒ½ä¸ºç©º(!ch è¡¨ç¤ºï¼šå¦‚æœä¸ºç©ºï¼Œåˆ™ä¸ºtrue)
-		4. å½“å‰tokençš„å€¼ç­‰äºä¼ å…¥çš„å€¼
+		1. µ±Ç°µÄtoken²»ÄÜÎª¿Õ
+		2. µ±Ç°tokenµÄÀàĞÍ±ØĞëÎª"punc"
+		3. ´«ÈëµÄÖµ²»ÄÜÎª¿Õ(!ch ±íÊ¾£ºÈç¹ûÎª¿Õ£¬ÔòÎªtrue)
+		4. µ±Ç°tokenµÄÖµµÈÓÚ´«ÈëµÄÖµ
 	*/
 	return token && token->flag == TOKEN_FLAG_IS_PUNC && (!ch || ( token->value.str->size() == 1 && token->value.str->at(0) == ch)) && token;
 }
@@ -69,10 +69,10 @@ static bool is_kw(const char* kw)
 {
 	Token* token = token_peek();
 	/*
-		1. å½“å‰çš„tokenä¸èƒ½ä¸ºç©º
-		2. å½“å‰tokençš„ç±»å‹å¿…é¡»ä¸º"punc"
-		3. ä¼ å…¥çš„å€¼ä¸èƒ½ä¸ºç©º(kw.empty() è¡¨ç¤ºï¼šå¦‚æœä¸ºç©ºï¼Œåˆ™ä¸ºtrue)
-		4. å½“å‰tokençš„å€¼ç­‰äºä¼ å…¥çš„å€¼
+		1. µ±Ç°µÄtoken²»ÄÜÎª¿Õ
+		2. µ±Ç°tokenµÄÀàĞÍ±ØĞëÎª"punc"
+		3. ´«ÈëµÄÖµ²»ÄÜÎª¿Õ(kw.empty() ±íÊ¾£ºÈç¹ûÎª¿Õ£¬ÔòÎªtrue)
+		4. µ±Ç°tokenµÄÖµµÈÓÚ´«ÈëµÄÖµ
 	*/
 	return token && token->flag == TOKEN_FLAG_IS_KW && (!kw || !strcmp(token->value.str->c_str(), kw) ) && token;
 }
@@ -88,20 +88,32 @@ static void skip_punc(const char ch)
 		{
 		case ';':
 		{
-			std::wstring error = L"æ‚é±¼\x2661~ï¼Œæ˜¯ä¸æ˜¯å¿˜è®°æ·»åŠ è¡¨è¾¾å¼åˆ†éš”ç¬¦\";\"äº†~";
+#ifdef WINDOWS
+			std::wstring error = L"ÔÓÓã\x2661~£¬ÊÇ²»ÊÇÍü¼ÇÌí¼Ó±í´ïÊ½·Ö¸ô·û\";\"ÁË~";
+#else
+			std::string error = "ÔÓÓã\u2661~£¬ÊÇ²»ÊÇÍü¼ÇÌí¼Ó±í´ïÊ½·Ö¸ô·û\";\"ÁË~";
+#endif
 			input_croak(error);
 			break;
 		}
 		case ')':
 		case '}':
 		{
-			std::wstring error = L"çœŸç¬¨\x2661~ï¼Œæ˜¯ä¸æ˜¯å¿˜äº†å¦\x2661ä¸€\x2661åŠ\x2661äº†\x2661~";
+#ifdef WINDOWS
+			std::wstring error = L"Õæ±¿\x2661~£¬ÊÇ²»ÊÇÍüÁËÁí\x2661Ò»\x2661°ë\x2661ÁË\x2661~";
+#else
+			std::string error = "Õæ±¿\u2661~£¬ÊÇ²»ÊÇÍüÁËÁí\u2661Ò»\u2661°ë\u2661ÁË\u2661~";
+#endif
 			input_croak(error);
 			break;
 		}
 		default:
 		{
-			std::wstring error = L"è¿™é‡Œé¢„æœŸæ¥æ”¶å­—ç¬¦: \"" + ch + '\"';
+#ifdef WINDOWS
+			std::wstring error = L"ÕâÀïÔ¤ÆÚ½ÓÊÕ×Ö·û: \"" + ch + '\"';
+#else
+			std::string error = "ÕâÀïÔ¤ÆÚ½ÓÊÕ×Ö·û: \"" + ch + '\"';
+#endif
 			input_croak(error);
 			break;
 		}
@@ -116,7 +128,7 @@ static void skip_kw(const char* kw)
 	}
 	else
 	{
-		std::wstring error = L"é¢„æœŸæ¥å—å…³é”®å­—ï¼š" + *kw + '\"';
+		std::string error = "Ô¤ÆÚ½ÓÊÜ¹Ø¼ü×Ö£º" + *kw + '\"';
 		input_croak(error);
 	}
 }
@@ -129,13 +141,13 @@ static void skip_op(const char* op)
 	}
 	else
 	{
-		std::wstring error = L"é¢„æœŸæ¥å—æ“ä½œç¬¦ï¼š" + *op + '\"';
+		std::string error = "Ô¤ÆÚ½ÓÊÜ²Ù×÷·û£º" + *op + '\"';
 		input_croak(error);
 	}
 }
 static Token* unexpected_token()
 {
-	std::wstring error = L"æœªå®šä¹‰çš„Token";
+	std::string error = "Î´¶¨ÒåµÄToken";
 	input_croak(error);
 	return NULL;
 }
@@ -152,7 +164,7 @@ static Token* maybe_binary(Token* left, int my_prec, bool *skip_expression_separ
 		int his_prec = (*Precedence)[*(token_predict_op->value.str)];
 		if (his_prec > my_prec)
 		{
-			//NO_RETURN_NEXT_TOEKN ç”±äºtokenå˜é‡æ˜¯ç”±token_peek()å¾—åˆ°çš„ï¼Œæ­¤æ—¶current_tokenæŒ‡å‘äº†å½“å‰çš„op tokenï¼Œæ­¤æ—¶è°ƒç”¨tokenå°†current_tokenè®¾ç½®ä¸ºNULLï¼Œå®ƒå¹¶ä¸è°ƒç”¨read_next()
+			//NO_RETURN_NEXT_TOEKN ÓÉÓÚtoken±äÁ¿ÊÇÓÉtoken_peek()µÃµ½µÄ£¬´ËÊ±current_tokenÖ¸ÏòÁËµ±Ç°µÄop token£¬´ËÊ±µ÷ÓÃtoken½«current_tokenÉèÖÃÎªNULL£¬Ëü²¢²»µ÷ÓÃread_next()
 			token_next();
 			Token* token_predict_binary;
 			if (*token_predict_op->value.str == "=")
@@ -165,9 +177,9 @@ static Token* maybe_binary(Token* left, int my_prec, bool *skip_expression_separ
 			}
 
 			TokenBinary* token_binary = DBG_NEW TokenBinary;
-			// è¿æ¥åˆ°æ ¹token
+			// Á¬½Óµ½¸ùtoken
 			token_predict_binary->value.body = token_binary;
-			// æ‹·è´æ“ä½œç¬¦å·åˆ°binaryï¼ŒåŸop tokenå¯ä»¥è¢«åˆ é™¤
+			// ¿½±´²Ù×÷·ûºÅµ½binary£¬Ô­op token¿ÉÒÔ±»É¾³ı
 			token_binary->op = DBG_NEW std::string(*token_predict_op->value.str);
 			delete token_predict_op;
 			token_binary->lrvalue = DBG_NEW TokenLRvalue;
@@ -224,11 +236,11 @@ static std::vector<Token*>* delimited(char start, char stop, char separator, Tok
 	std::vector<Token*>* args = DBG_NEW std::vector<Token*>;
 
 	/*
-		æ˜¯å¦éœ€è¦è·³è¿‡è¡¨è¾¾å¼åˆ†éš”ç¬¦ï¼Œå¦‚æœè¡¨è¾¾å¼ä¸Šä¸€ä¸ªè¡¨è¾¾å¼å­˜åœ¨ prog if lambdaçš„å¤šé‡è¡¨è¾¾å¼å½¢å¼ï¼Œåˆ™è®¾ç½®æ”¹å€¼ï¼Œè¡¨ç¤ºéœ€è¦è·³è¿‡ " ; "
+		ÊÇ·ñĞèÒªÌø¹ı±í´ïÊ½·Ö¸ô·û£¬Èç¹û±í´ïÊ½ÉÏÒ»¸ö±í´ïÊ½´æÔÚ prog if lambdaµÄ¶àÖØ±í´ïÊ½ĞÎÊ½£¬ÔòÉèÖÃ¸ÄÖµ£¬±íÊ¾ĞèÒªÌø¹ı " ; "
 	*/
 	bool skip_expression_separator = false;
 	/*
-		å—çš„å¼€å¤´	
+		¿éµÄ¿ªÍ·	
 	*/
 	bool first = true;
 
@@ -282,12 +294,11 @@ static std::string* parse_varname()
 	std::string* varname = name->value.str;
 	if (name->flag != TOKEN_FLAG_IS_VAR)
 	{
-		std::wstring error = L"çŒª";
+		std::string error = "ÊÇÖíÂï~";
 		input_croak(error);
-
 	}
-	// ç”±äºåªéœ€è¦å®ƒçš„å‚æ•°åï¼Œè€Œä¸éœ€è¦tokenï¼Œæ‰€ä»¥æ­¤æ—¶ä»…éœ€è¦è®¾ç½®flagå‘Šè¯‰å›æ”¶å™¨å¹¶ä¸æ¸…ç†è¯¥tokençš„value
-	// ç„¶ååˆ é™¤è¯¥token
+	// ÓÉÓÚÖ»ĞèÒªËüµÄ²ÎÊıÃû£¬¶ø²»ĞèÒªtoken£¬ËùÒÔ´ËÊ±½öĞèÒªÉèÖÃflag¸æËß»ØÊÕÆ÷²¢²»ÇåÀí¸ÃtokenµÄvalue
+	// È»ºóÉ¾³ı¸Ãtoken
 	SET_TOKEN_FLAG_TO_BITS(*name);
 	delete name;
 	return varname;
@@ -295,12 +306,12 @@ static std::string* parse_varname()
 
 /*
 
-ä¾‹ç¨‹æè¿°ï¼š
+Àı³ÌÃèÊö£º
 
-	è¯¥ä¾‹ç¨‹ç”¨æ¥è§£æä¸€ä¸ª if è¡¨è¾¾å¼
+	¸ÃÀı³ÌÓÃÀ´½âÎöÒ»¸ö if ±í´ïÊ½
 
-	thenå…³é”®å­—çš„ä½œç”¨æ˜¯ç”¨æ¥å¿½ç•¥æ¡ä»¶è¡¨è¾¾å¼çš„æ‹¬å·ï¼Œå¦‚æœä¸ºæ¡ä»¶è¡¨è¾¾å¼å¢åŠ æ‹¬å·ï¼Œåˆ™å¯ä»¥çœç•¥thenå…³é”®å­—ï¼Œæ‰€ä»¥å¯¹äºå¦‚ä¸‹
-è¯­æ³•ï¼Œifè¯­å¥ä¹Ÿæ˜¯æˆç«‹çš„ï¼ˆå¥‡ä¸‘æ— æ¯”ï¼‰ï¼Œå»ºè®®ä½¿ç”¨ç»Ÿä¸€çš„é£æ ¼ã€‚
+	then¹Ø¼ü×ÖµÄ×÷ÓÃÊÇÓÃÀ´ºöÂÔÌõ¼ş±í´ïÊ½µÄÀ¨ºÅ£¬Èç¹ûÎªÌõ¼ş±í´ïÊ½Ôö¼ÓÀ¨ºÅ£¬Ôò¿ÉÒÔÊ¡ÂÔthen¹Ø¼ü×Ö£¬ËùÒÔ¶ÔÓÚÈçÏÂ
+Óï·¨£¬ifÓï¾äÒ²ÊÇ³ÉÁ¢µÄ£¨Ææ³óÎŞ±È£©£¬½¨ÒéÊ¹ÓÃÍ³Ò»µÄ·ç¸ñ¡£
 	if (a > 5)
 		a = 3;
 	else if a < 2 then
@@ -315,11 +326,11 @@ static std::string* parse_varname()
 */
 static Token* parse_if(bool *skip_expression_separator)
 {
-	// then å…³é”®å­—å¯çœç•¥
+	// then ¹Ø¼ü×Ö¿ÉÊ¡ÂÔ
 	bool ignore_then_kw = false;
-	// è·å–æ¡ä»¶token
+	// »ñÈ¡Ìõ¼ştoken
 	Token* cond = NULL;
-	// thenåˆ†æ”¯token
+	// then·ÖÖ§token
 	Token* then_branch = NULL;
 
 	skip_kw("if");
@@ -347,27 +358,27 @@ static Token* parse_if(bool *skip_expression_separator)
 		skip_punc(';');
 	}
 
-	// æ–°å»ºä¸€ä¸ªtokenï¼Œç”¨æ¥è¿æ¥if
+	// ĞÂ½¨Ò»¸ötoken£¬ÓÃÀ´Á¬½Óif
 	Token* token = DBG_NEW Token(TOKEN_FLAG_IS_IF);
 	// if token
 	TokenIf* token_if = DBG_NEW TokenIf;
-	// è¿æ¥åˆ°tokenèŠ‚ç‚¹
+	// Á¬½Óµ½token½Úµã
 	token->value.body = token_if;
-	// è®¾ç½®ifçš„æ¡ä»¶è¡¨è¾¾å¼
+	// ÉèÖÃifµÄÌõ¼ş±í´ïÊ½
 	token_if->cond = cond;
 
-	// æ–°å»ºtokenbranch
+	// ĞÂ½¨tokenbranch
 	TokenBranch* if_branch = DBG_NEW TokenBranch;
-	// tokenifè¿æ¥åˆ†æ”¯token
+	// tokenifÁ¬½Ó·ÖÖ§token
 	token_if->branch = if_branch;
 	if_branch->then_branch = then_branch;
 
 	if (is_kw("else"))
 	{
-		// è·³è¿‡elseå…³é”®å­—
+		// Ìø¹ıelse¹Ø¼ü×Ö
 		NO_RETURN_NEXT_TOEKN
 
-		// å¦‚æœæœ‰å¤§æ‹¬å·ï¼Œå°±è·³è¿‡åˆ†éš”ç¬¦
+		// Èç¹ûÓĞ´óÀ¨ºÅ£¬¾ÍÌø¹ı·Ö¸ô·û
 		if (is_punc('{'))
 			*skip_expression_separator = true;
 		else
@@ -402,7 +413,7 @@ static Token* parse_bool()
 {
 	Token* token_bool = DBG_NEW Token(TOKEN_FLAG_IS_BOOL);
 	Token* next_token = token_next();
-	// å¦‚æœvalueä¸ºtrueï¼Œå°±èµ‹å€¼ä¸º1ï¼Œå¦åˆ™0
+	// Èç¹ûvalueÎªtrue£¬¾Í¸³ÖµÎª1£¬·ñÔò0
 	token_bool->value.bits = (!strcmp(next_token->value.str->c_str(), "true"));
 	delete next_token;
 
@@ -429,14 +440,18 @@ static Token* parse_prog(bool *skip_expression_separator)
 	Token* token_prog = DBG_NEW Token(TOKEN_FLAG_IS_PROG);
 	token_prog->value.prog = delimited('{', '}', ';', parse_expression);
 
-	// å¦‚æœ{ } å¹¶æœªä»»ä½•è¡¨è¾¾å¼ï¼Œåˆ™ä¸º ç©º
+	// Èç¹û{ } ²¢Î´ÈÎºÎ±í´ïÊ½£¬ÔòÎª ¿Õ
 	if (token_prog->value.prog->size() == 0)
 	{
-		std::wstring error = L"{ } å¹¶æœªåŒ…å«ä»»ä½•è¡¨è¾¾å¼ï¼ä½ è¿è‡ªå·±æƒ³å¯¹æˆ‘å¹²ä»€ä¹ˆéƒ½ä¸çŸ¥é“å˜›\x2661~";
+#ifdef WINDOWS
+		std::wstring error = L"{ } ²¢Î´°üº¬ÈÎºÎ±í´ïÊ½£¡ÄãÁ¬×Ô¼ºÏë¶ÔÎÒ¸ÉÊ²Ã´¶¼²»ÖªµÀÂï\x2661~";
+#else
+		std::string error = "{ } ²¢Î´°üº¬ÈÎºÎ±í´ïÊ½£¡ÄãÁ¬×Ô¼ºÏë¶ÔÎÒ¸ÉÊ²Ã´¶¼²»ÖªµÀÂï\u2661~";
+#endif
 		input_croak(error);
 		// return NULL;
 	}
-	// å¯¹äºä¸€ä¸ªç”± { } åŒ…è£¹çš„è¡¨è¾¾å¼åºåˆ—ï¼Œå®ƒå¹¶ä¸éœ€è¦åˆ†éš”ç¬¦ï¼Œæ‰€ä»¥è®¾ç½®ä¸ºtrue
+	// ¶ÔÓÚÒ»¸öÓÉ { } °ü¹üµÄ±í´ïÊ½ĞòÁĞ£¬Ëü²¢²»ĞèÒª·Ö¸ô·û£¬ËùÒÔÉèÖÃÎªtrue
 	*skip_expression_separator = true;
 	return token_prog;
 }
@@ -453,10 +468,10 @@ static Token* parse_def(bool* skip_expression_separator)
 {
 	skip_kw("def");
 	Token* def = DBG_NEW Token(TOKEN_FLAG_IS_DEF);
-	// å¦‚æœå½“å‰çš„tokenä¸ä¸ºç©ºï¼Œä¸”ç±»å‹ä¸ºpuncï¼Œå¹¶ä¸”å€¼ä¸º '('ï¼Œè¿›å…¥è¯¥åˆ†æ”¯
+	// Èç¹ûµ±Ç°µÄtoken²»Îª¿Õ£¬ÇÒÀàĞÍÎªpunc£¬²¢ÇÒÖµÎª '('£¬½øÈë¸Ã·ÖÖ§
 	Token* tok = token_next();
 
-	// å…¶å®å°±æ˜¯ä¸ºäº†çœç•¥lambdaå…³é”®å­—ï¼Œå½“ç„¶ä½ æƒ³åŠ lambdaå…³é”®å­—ä¹Ÿå¯ä»¥
+	// ÆäÊµ¾ÍÊÇÎªÁËÊ¡ÂÔlambda¹Ø¼ü×Ö£¬µ±È»ÄãÏë¼Ólambda¹Ø¼ü×ÖÒ²¿ÉÒÔ
 	if (is_punc('('))
 	{
 		TokenDef* body_def_func = DBG_NEW TokenDef;
@@ -506,13 +521,13 @@ static Token* parse_atom(bool* skip_expression_separator)
 		{
 			return parse_if(skip_expression_separator);
 		}
-		// å¦‚æœå½“å‰çš„tokenä¸ä¸ºç©ºï¼Œä¸”å­—ç¬¦ä¸²ä¸ºå…³é”®å­—çš„def
+		// Èç¹ûµ±Ç°µÄtoken²»Îª¿Õ£¬ÇÒ×Ö·û´®Îª¹Ø¼ü×ÖµÄdef
 		if (is_kw("def"))
 		{
 			return parse_def(skip_expression_separator);
 		}
 
-		// å¦‚æœå½“å‰çš„tokenä¸ä¸ºç©ºï¼Œä¸”å­—ç¬¦ä¸²ä¸ºå…³é”®å­—çš„list
+		// Èç¹ûµ±Ç°µÄtoken²»Îª¿Õ£¬ÇÒ×Ö·û´®Îª¹Ø¼ü×ÖµÄlist
 		if (is_kw("list"))
 		{
 			NO_RETURN_NEXT_TOEKN
@@ -524,7 +539,7 @@ static Token* parse_atom(bool* skip_expression_separator)
 			return parse_bool();
 		}
 
-		if (is_kw("lambda") || is_kw("Î»"))
+		if (is_kw("lambda") || is_kw("¦Ë"))
 		{
 			NO_RETURN_NEXT_TOEKN
 			return parse_lambda(skip_expression_separator);
@@ -549,7 +564,7 @@ void parse_toplevel(Token* prog_root)
 {
 	prog_root->value.prog = DBG_NEW std::vector<Token*>;
 	/*
-		æ˜¯å¦éœ€è¦è·³è¿‡è¡¨è¾¾å¼åˆ†éš”ç¬¦ï¼Œå¦‚æœè¡¨è¾¾å¼ä¸Šä¸€ä¸ªè¡¨è¾¾å¼å­˜åœ¨ prog if lambdaçš„å¤šé‡è¡¨è¾¾å¼å½¢å¼ï¼Œåˆ™è®¾ç½®æ”¹å€¼ï¼Œè¡¨ç¤ºéœ€è¦è·³è¿‡ " ; "
+		ÊÇ·ñĞèÒªÌø¹ı±í´ïÊ½·Ö¸ô·û£¬Èç¹û±í´ïÊ½ÉÏÒ»¸ö±í´ïÊ½´æÔÚ prog if lambdaµÄ¶àÖØ±í´ïÊ½ĞÎÊ½£¬ÔòÉèÖÃ¸ÄÖµ£¬±íÊ¾ĞèÒªÌø¹ı " ; "
 	*/
 	bool skip_expression_separator = false;
 

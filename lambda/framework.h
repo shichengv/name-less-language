@@ -1,10 +1,10 @@
 #pragma once
 
-// #define WINDOWS
+//#define WINDOWS
 #define LINUX
 
-// 测试，不定义Release宏
-#define RELEASE
+// Visual Studio 调试使用
+#define DEUBG
 
 
 

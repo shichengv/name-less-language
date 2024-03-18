@@ -135,9 +135,6 @@
     <ClCompile Include="stdlib\built-in\built_in_exit.cpp">
       <Filter>源文件\stdlib\built-in</Filter>
     </ClCompile>
-    <ClCompile Include="configure\command.cpp">
-      <Filter>源文件\configure</Filter>
-    </ClCompile>
     <ClCompile Include="configure\read_file.cpp">
       <Filter>源文件\configure</Filter>
     </ClCompile>
@@ -148,6 +145,15 @@
       <Filter>源文件\stdlib\built-in\pair</Filter>
     </ClCompile>
     <ClCompile Include="stdlib\built-in\pair\built_in_cadr.cpp">
+      <Filter>源文件\stdlib\built-in\pair</Filter>
+    </ClCompile>
+    <ClCompile Include="configure\command.cpp">
+      <Filter>源文件\configure</Filter>
+    </ClCompile>
+    <ClCompile Include="stdlib\built-in\pair\built_in_append.cpp">
+      <Filter>源文件\stdlib\built-in\pair</Filter>
+    </ClCompile>
+    <ClCompile Include="stdlib\built-in\pair\built_in_set_append.cpp">
       <Filter>源文件\stdlib\built-in\pair</Filter>
     </ClCompile>
   </ItemGroup>

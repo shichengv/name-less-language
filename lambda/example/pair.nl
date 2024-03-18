@@ -1,12 +1,15 @@
 # skadi = pair(list("Orcinus orca", pair("Skadi", "Skadi the Corrupting")), "Specter");
 
-skadi = pair("Skadi", "Orcinus orca");
-set-cdr!(&skadi, "Skadi the Corrupting");
-print(skadi);
+# skadi = pair("Skadi", "Orcinus orca");
+# set-cdr!(&skadi, "Skadi the Corrupting");
+# print(skadi);
 
-# skadi = list("skadi", "Orcinus orca", "Specter", "Skadi the Corrupting", "Specter the Unchained");
-# set-car!(&skadi, "Skadi");
+skadi = list("skadi", "Orcinus orca", "Specter", "Skadi the Corrupting");
+set-car!(&skadi, "Skadi");
+print(car(skadi));
+print(cdr(skadi));
 
+# ±È¿˙¡–±Ì
 def loop-list(items) {
 	item = car(items);
 

@@ -1,14 +1,5 @@
 #include "error_log.h"
 
-std::string* analyzer_flag;
-std::string* eval_flag;
-
-void error_log_init()
-{
-	analyzer_flag = DBG_NEW std::string("[ANALYZER]:[FATAL]\t");
-	eval_flag = DBG_NEW std::string("[EVAL]:[ERROR]\t");
-}
-
 void throw_analyzer_exception(std::wstring& msg)
 {
 
@@ -50,8 +41,3 @@ void throw_eval_exception(std::string& msg)
 {
 }
 
-void error_log_clean()
-{
-	delete analyzer_flag;
-	delete eval_flag;
-}

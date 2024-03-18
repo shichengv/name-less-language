@@ -318,7 +318,11 @@ static Token* read_next()
         }
         else
         {
+#ifdef WINDOWS
 			std::wstring error = L"\x5f15\x7528\x540e\x9762\x8bb0\x5f97\x8ddf\x4e0a\x9700\x8981\x5f15\x7528\x7684\x53d8\x91cf\x540d\x54e6\x266A\x007e";
+#else
+			std::string error = "\u5f15\u7528\u540e\u9762\u8bb0\u5f97\u8ddf\u4e0a\u9700\u8981\u5f15\u7528\u7684\u53d8\u91cf\u540d\u54e6\u266A\u007e";
+#endif
 			input_croak(error);
             return NULL;
         }

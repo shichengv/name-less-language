@@ -23,8 +23,6 @@ static void interpreter_init()
 
     read_file(options->filename, file_contents);
     
-    // 错误日志初始化
-    error_log_init();
     // 输入流初始化
     input_stream_init(file_contents);
     // token流初始化
@@ -45,8 +43,6 @@ static void interpreter_clean()
 	token_stream_clean();
     // 清理输入流，它会清除 file_contents
 	input_stream_clean();
-    // 清理错误日志
-    error_log_clean();
 
 }
 
@@ -63,7 +59,7 @@ int main(int argc, char* argv[])
 #endif // WINDOWS
 
 
-#ifdef RELEASE
+#ifndef DEBUG
 
     options = DBG_NEW InterpreterOptions;
     handle_options(argc, argv, options);
@@ -117,13 +113,13 @@ done:
 
 #else
 /*
-    Debug使用，需要取消定义 RELEASE 宏
+    Debug使用，需要定义 DEBUG 宏
 */
 
     file_contents = DBG_NEW std::string;
     root = DBG_NEW Token(TOKEN_FLAG_IS_PROG);
 
-    std::ifstream file("example\\hello.nl");
+    std::ifstream file("example\\pair.nl");
 
     if (file.is_open()) {
         // Read the file line by line and append to the content
@@ -136,8 +132,7 @@ done:
     else 
         std::cout << "Unable to open the file.\n";
     
-    // 错误日志初始化
-    error_log_init();
+;
     // 输入流初始化
     input_stream_init(file_contents);
     // token流初始化
@@ -159,9 +154,7 @@ done:
 	token_stream_clean();
     // 清理输入流，它会清除 file_contents
 	input_stream_clean();
-    // 清理错误日志
-    error_log_clean();
-#endif // RELEASE
+#endif // 
 
 
 

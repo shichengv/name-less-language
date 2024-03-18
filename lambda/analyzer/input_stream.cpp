@@ -93,7 +93,7 @@ static std::string get_current_row()
 	return row;
 }
 
-void input_croak(std::string msg)
+void input_croak(std::string& msg)
 {
 	msg += " (" + std::to_string(line - 1) + ":" + std::to_string(col) + ")\n\n";
 	msg += get_current_row();

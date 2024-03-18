@@ -75,6 +75,12 @@ def push(stack, value) {
     push-the-stack(value);
 }
 
+# 汇编语言
+
+
+
+
+
 # 新建一个寄存器机器
 def make-new-machine() {
     pc = make-register("pc"); 
@@ -84,7 +90,7 @@ def make-new-machine() {
 
     return = {
 
-        the-ops = list( list("initialize-stack", lambda() stack("initialize"); ))
+        the-ops = list( list("initialize-stack", lambda() { stack("initialize"); } ))
         register-table = list( list("pc", pc), list("flag", flag));
 
         allocate-register = lambda(name) {
@@ -117,7 +123,29 @@ def make-new-machine() {
             }
         }
 
-        
+        dispatch = lambda(message) {
+            if (message == "start")
+            {
+                set-contents!(pc, the-instruction-sequence);
+                execute();
+            }
+            else if (message == "install-instruction-sequence")
+                lambda(seq) the-instruction-sequence = seq;
+            else if (message == "allocate-register")
+                allocate-register;
+            else if (message == "get-register")
+                lookup-register;
+            else if (message == "install-operations")
+                lambda(ops) the-ops = append(the-ops, ops);
+            else if (message == "stack")
+                stack;
+            else if (message == "operations")
+                the-ops;
+            else 
+                error("Unknown request -- MACHINE");
+        }
+
+        dispatch; 
         
     }
     

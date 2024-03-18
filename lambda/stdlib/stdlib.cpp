@@ -63,6 +63,16 @@ void stdlib_init(std::unordered_map<std::string, Value*>* scope)
 		construct_func_addr(built_in_set_cdr, STDLIB_BUILT_IN, BUILT_IN_SET_CDR);
 		func_name = "set-cdr!";
 		(*scope)[func_name] = built_in_set_cdr;
+		
+		Value* built_in_append = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
+		construct_func_addr(built_in_append, STDLIB_BUILT_IN, BUILT_IN_APPEND);
+		func_name = "append";
+		(*scope)[func_name] = built_in_append;
+
+		Value* built_in_set_append = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
+		construct_func_addr(built_in_set_append, STDLIB_BUILT_IN, BUILT_IN_SET_APPEND);
+		func_name = "append!";
+		(*scope)[func_name] = built_in_set_append;
 
 		Value* built_in_typeid = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
 		construct_func_addr(built_in_typeid, STDLIB_BUILT_IN, BUILT_IN_TYPEID);

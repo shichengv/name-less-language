@@ -14,7 +14,6 @@ enum ENUM_VALUE
 	VALUE_IS_STD_FUNC_OFFSET,
 	VALUE_IS_PAIR,
 	VALUE_IS_TYPEID,
-	VALUE_IS_LIST,
 	VALUE_IS_REF,
 };
 
@@ -45,8 +44,6 @@ public:
 		void* pair;
 		// std_library_functions offset
 		uint64_t offset;
-		std::vector<Value>* items;
-
 		Value* ref;
 
 	} value;

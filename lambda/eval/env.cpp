@@ -163,12 +163,6 @@ Value::Value(const Value& value)
 	{
 		this->value.pair = DBG_NEW ValuePair((ValuePair*)value.value.pair);
 	}
-	else if (value.flag == VALUE_IS_LIST)
-	{
-		this->value.items = DBG_NEW std::vector<Value>;
-		for (auto iter = value.value.items->begin(); iter < value.value.items->end(); iter++)
-			this->value.items->push_back(*iter);
-	}
 	else
 	{
 		// 拷贝位向量
@@ -195,12 +189,6 @@ Value::Value(Value* value)
 	else if (value->flag == VALUE_IS_PAIR)
 	{
 		this->value.pair = DBG_NEW ValuePair((ValuePair*)value->value.pair);
-	}
-	else if (value->flag == VALUE_IS_LIST)
-	{
-		this->value.items = DBG_NEW std::vector<Value>;
-		for (auto iter = value->value.items->begin(); iter < value->value.items->end(); iter++)
-			this->value.items->push_back(*iter);
 	}
 	else
 	{
@@ -243,11 +231,6 @@ Value::~Value()
 		// 删除字符串对象
 		delete this->value.str;
 		break;
-	case VALUE_IS_LIST:
-	{
-		delete this->value.items;
-		break;
-	}
 	case VALUE_IS_PAIR:
 	{
 		ValuePair* pair = (ValuePair*)this->value.pair;

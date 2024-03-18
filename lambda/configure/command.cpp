@@ -14,44 +14,12 @@ InterpreterOptions::~InterpreterOptions()
 
 void print_help()
 {
-	char option[24] = { 0 };
+    printf("\n欢迎使用 name-less language 解析器：\n");
+    printf("%-20s : %s\n", "\t-h --help", "获取帮助");
+    printf("%-20s : %s\n", "\t-ast", "生成语法树文件\\0");
+    printf("%-20s : %s\n", "\t-i <filename>", "读取文件");
+    printf("%-20s : %s\n\n", "\t-no-exec", "解析但不执行");
 
-	std::string hello_msg;
-
-	hello_msg += "\n欢迎使用 name-less language 解析器：\n";
-#ifdef WINDOWS
-	sprintf_s(option, "%-20s", "\t-h --help");
-#else
-	sprintf(option, "%-20s", "\t-h --help");
-#endif
-	hello_msg += option;
-	hello_msg += " : 获取帮助\n";
-
-#ifdef WINDOWS
-	sprintf_s(option, "%-20s", "\t-ast");
-#else
-	sprintf(option, "%-20s", "\t-ast");
-#endif
-	hello_msg += option;
-	hello_msg += " : 生成语法树文件\\n";
-
-#ifdef WINDOWS
-	sprintf_s(option, "%-20s", "\t-i <filename>");
-#else
-	sprintf(option, "%-20s", "\t-i <filename>");
-#endif
-	hello_msg += option;
-	hello_msg += " : 读取文件\n";
-
-#ifdef WINDOWS
-	sprintf_s(option, "%-20s", "\t-no-exec");
-#else
-	sprintf(option, "%-20s", "\t-no-exec");
-#endif
-	hello_msg += option;
-	hello_msg += " : 解析但不执行\n";
-
-	std::cout << hello_msg << std::endl;
 }
 
 void print_version()

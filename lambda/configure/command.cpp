@@ -18,14 +18,14 @@ void print_help()
 
 	std::string hello_msg;
 
-	hello_msg += "\n欢迎使用 name-less language 解析器：\n";
+	hello_msg += "\n娆㈣繋浣跨敤 name-less language 瑙ｆ瀽鍣細\n";
 #ifdef WINDOWS
 	sprintf_s(option, "%-20s", "\t-h --help");
 #else
 	sprintf(option, "%-20s", "\t-h --help");
 #endif
 	hello_msg += option;
-	hello_msg += " : 获取帮助\n";
+	hello_msg += " : 鑾峰彇甯姪\n";
 
 #ifdef WINDOWS
 	sprintf_s(option, "%-20s", "\t-ast");
@@ -33,7 +33,7 @@ void print_help()
 	sprintf(option, "%-20s", "\t-ast");
 #endif
 	hello_msg += option;
-	hello_msg += " : 生成语法树文件\n";
+	hello_msg += " : 鐢熸垚璇硶鏍戞枃浠禱\n";
 
 #ifdef WINDOWS
 	sprintf_s(option, "%-20s", "\t-i <filename>");
@@ -41,7 +41,7 @@ void print_help()
 	sprintf(option, "%-20s", "\t-i <filename>");
 #endif
 	hello_msg += option;
-	hello_msg += " : 读取文件\n";
+	hello_msg += " : 璇诲彇鏂囦欢\n";
 
 #ifdef WINDOWS
 	sprintf_s(option, "%-20s", "\t-no-exec");
@@ -49,7 +49,7 @@ void print_help()
 	sprintf(option, "%-20s", "\t-no-exec");
 #endif
 	hello_msg += option;
-	hello_msg += " : 解析但不执行\n";
+	hello_msg += " : 瑙ｆ瀽浣嗕笉鎵ц\n";
 
 	std::cout << hello_msg << std::endl;
 }

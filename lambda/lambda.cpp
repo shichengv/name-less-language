@@ -1,4 +1,4 @@
-ï»¿#include "framework.h"
+#include "framework.h"
 #include "./analyzer/input_stream.h"
 #include "./analyzer/token/token.h"
 #include "./analyzer/token_stream.h"
@@ -6,14 +6,14 @@
 #include "./configure/error_log.h"
 #include "./configure/command.h"
 
-// æ„é€ å¯è§†åŒ–è¯­æ³•æ ‘
+// ¹¹Ôì¿ÉÊÓ»¯Óï·¨Ê÷
 std::string* construct_ast(Token* root);
-// æ±‚å€¼å™¨[è§£é‡Šå™¨]
+// ÇóÖµÆ÷[½âÊÍÆ÷]
 void eval_root_prog(Token* root);
 
 static std::string* file_contents;
 static InterpreterOptions* options;
-// è¯­æ³•æ ‘æ ¹èŠ‚ç‚¹
+// Óï·¨Ê÷¸ù½Úµã
 static Token* root;
 
 static void interpreter_init() 
@@ -23,29 +23,29 @@ static void interpreter_init()
 
     read_file(options->filename, file_contents);
     
-    // é”™è¯¯æ—¥å¿—åˆå§‹åŒ–
+    // ´íÎóÈÕÖ¾³õÊ¼»¯
     error_log_init();
-    // è¾“å…¥æµåˆå§‹åŒ–
+    // ÊäÈëÁ÷³õÊ¼»¯
     input_stream_init(file_contents);
-    // tokenæµåˆå§‹åŒ–
+    // tokenÁ÷³õÊ¼»¯
 	token_stream_init();
-    // è§£æå™¨åˆå§‹åŒ–
+    // ½âÎöÆ÷³õÊ¼»¯
     parser_init();
 }
 
 static void interpreter_clean()
 {
 
-    // åˆ é™¤è¯­æ³•æ ‘
+    // É¾³ıÓï·¨Ê÷
     if (root)
 		delete root;
-    // æ¸…ç†è§£æå™¨
+    // ÇåÀí½âÎöÆ÷
     parser_clean();
-    // æ¸…ç†tokenæµ
+    // ÇåÀítokenÁ÷
 	token_stream_clean();
-    // æ¸…ç†è¾“å…¥æµï¼Œå®ƒä¼šæ¸…é™¤ file_contents
+    // ÇåÀíÊäÈëÁ÷£¬Ëü»áÇå³ı file_contents
 	input_stream_clean();
-    // æ¸…ç†é”™è¯¯æ—¥å¿—
+    // ÇåÀí´íÎóÈÕÖ¾
     error_log_clean();
 
 }
@@ -57,6 +57,10 @@ int main(int argc, char* argv[])
     _CrtMemState s1, s2, s3;
     _CrtMemCheckpoint(&s1);
 #endif
+
+#ifdef WINDOWS
+    SetConsoleOutputCP(65001);
+#endif // WINDOWS
 
 
 #ifdef RELEASE
@@ -74,7 +78,7 @@ int main(int argc, char* argv[])
 
         if (options->generate_visualized_ast)
         {
-			// æ„é€ å¯è§†åŒ–è¯­æ³•æ ‘
+			// ¹¹Ôì¿ÉÊÓ»¯Óï·¨Ê÷
 			std::string* visualized_ast = construct_ast(root);
             // Find the position of the dot (.)
             size_t dotPosition = options->filename.find_last_of('.');
@@ -100,7 +104,7 @@ int main(int argc, char* argv[])
         }
 
         if (options->eval_the_source)
-			// è§£æè¯­æ³•æ ‘
+			// ½âÎöÓï·¨Ê÷
 			eval_root_prog(root);
         
         interpreter_clean();
@@ -113,8 +117,9 @@ done:
 
 #else
 /*
-    Debugä½¿ç”¨ï¼Œéœ€è¦å–æ¶ˆå®šä¹‰ RELEASE å®
+    DebugÊ¹ÓÃ£¬ĞèÒªÈ¡Ïû¶¨Òå RELEASE ºê
 */
+
     file_contents = DBG_NEW std::string;
     root = DBG_NEW Token(TOKEN_FLAG_IS_PROG);
 
@@ -131,13 +136,13 @@ done:
     else 
         std::cout << "Unable to open the file.\n";
     
-    // é”™è¯¯æ—¥å¿—åˆå§‹åŒ–
+    // ´íÎóÈÕÖ¾³õÊ¼»¯
     error_log_init();
-    // è¾“å…¥æµåˆå§‹åŒ–
+    // ÊäÈëÁ÷³õÊ¼»¯
     input_stream_init(file_contents);
-    // tokenæµåˆå§‹åŒ–
+    // tokenÁ÷³õÊ¼»¯
 	token_stream_init();
-    // è§£æå™¨åˆå§‹åŒ–
+    // ½âÎöÆ÷³õÊ¼»¯
     parser_init();
 
     parse_toplevel(root);
@@ -145,16 +150,16 @@ done:
 	eval_root_prog(root);
 	delete visualized_ast;
 
-    // åˆ é™¤è¯­æ³•æ ‘
+    // É¾³ıÓï·¨Ê÷
     if (root)
 		delete root;
-    // æ¸…ç†è§£æå™¨
+    // ÇåÀí½âÎöÆ÷
     parser_clean();
-    // æ¸…ç†tokenæµ
+    // ÇåÀítokenÁ÷
 	token_stream_clean();
-    // æ¸…ç†è¾“å…¥æµï¼Œå®ƒä¼šæ¸…é™¤ file_contents
+    // ÇåÀíÊäÈëÁ÷£¬Ëü»áÇå³ı file_contents
 	input_stream_clean();
-    // æ¸…ç†é”™è¯¯æ—¥å¿—
+    // ÇåÀí´íÎóÈÕÖ¾
     error_log_clean();
 #endif // RELEASE
 

@@ -24,7 +24,7 @@
 #include <stdint.h>
 
 #ifdef WINDOWS
-
+#include <Windows.h>
 #include <io.h>
 #include <fcntl.h>
 
@@ -34,7 +34,6 @@
 #ifdef _FIND_MEMORY_LEAKS_USING_CRT
 
 #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
 #include <crtdbg.h>
 
 #ifdef _DEBUG

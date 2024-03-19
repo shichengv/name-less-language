@@ -13,9 +13,8 @@
 
 ## 介绍
 
-**name-less** 语言作为一门简单的"函数式"语言，C语言语法风格的Scheme语言(bushi)。
-在 **name-less** 的世界中，代码被视为以 ';' 分隔的表达式序列。表达式都将返回它自己值。 
-
+**name-less** 语言作为一门简单的"函数式"语言，它的解释器由C++实现。
+ 
 **name-less**语言使用 `.nl` 作为代码源文件的扩展名。下面是 **name-less** 的hello, world代码示例:
 
 ```
@@ -25,8 +24,10 @@ print("hello, world\n");	# 打印hello, world
 
 它拥有非常少的关键字，部分关键字只是作为语法糖，并不影响该语言的功能。
 ```
-if then else lambda λ true false def list nil
+if then else lambda λ true false def list
 ```
+
+在 **name-less** 的世界中，代码被视为以 ';' 分隔的表达式序列。表达式都将返回它自己值。name-less 支持 "面向对象" 设计。name-less 的对象有用独立的局部环境，数据存储在该环境中，只能通过对外的方法来访问操作这些对象。name-less 继承了Scheme的序对结构设计，定义了一系列内部函数用来操作该结构体。
 
 ## 构建
 

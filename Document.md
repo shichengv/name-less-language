@@ -4,6 +4,67 @@
 
 ## 特性
 
+### 注释
+
+`#` 符号后面的内容被视为注释，解析器读取到该字符时会忽略改行后面的所有内容，直到遇到 `\n` 换行符。
+
+```
+# 这是一行注释
+print("这行代码将会被解析执行");
+```
+
+### 面向对象
+
+name-less 的对象有用独立的局部环境，数据存储在该环境中，只能通过对外的方法来访问操作这些对象。与 C++ 的class不同，name-less 只允许一个成员是公共的，并且，该公共成员只能是函数。下面是一个构造一个银行账号对象的示例：
+
+```
+# 定义一个银行账户对象
+def make-account(balance) {
+	# 提款
+	def withdraw(amount) {
+		if (balance >= amount)
+			balance = balance - amount;
+		else
+			print("Insufficient funds");
+	}
+	# 存款
+	def deposit(amount) {
+		balance = balance + amount;
+	}
+	# 分发器，分发器函数根据用户需要操作的方法名来返回对应的方法或数据。
+	def dispatch(m) {
+		if (m == "withdraw")
+			withdraw;
+		else if (m == "deposit")
+			deposit;
+		else
+			print("Unknown request -- MAKE-ACCOUNT");
+	}
+	# 返回这个分发器函数，这样解析器检测到返回是一个函数，就不会删除该局部环境
+	# 分发器只是一个普通的函数。
+	dispatch;
+}
+```
+
+```
+# 消息传递编程风格
+# 定义withdraw方法，接受一个账户对象和参数
+def withdraw(account, amount) {
+	withdraw = account("withdraw");
+	withdraw(amount);
+}
+# 定义deposit方法，接受一个账户对象和参数
+def deposit(account, amount) {
+	deposit = account("deposit");
+	deposit(amount);
+}
+account1 = make-account(1500);
+# 提款 520
+withdraw(account1, 520);
+# 存款 1147
+deposit(account1, 1147);
+```
+
 ### 代码块
 
 &emsp; **"\{ }"** 包裹的代码块具有专属的局部环境。**"\{ }"** 也代表一个表达式序列，类似于Scheme语言的 (begin exp1 exp2 ...)。表达式序列的返回值为最后一个表达式的值。当前局部环境中所有的临时常量数据(包括返回值)都被存储在其父环境的临时数据回收器中。当一个环境被清理时，它的临时数据回收器会清理所有的临时常量。当一个代码块返回的值为 lambda 类型时，并且，该lambda类型的函数所在的环境为当前的环境，那么该环境将会被延迟回收。如果，该lambda类型的函数所在的环境被添加到了当前的环境的待回收环境序列中，该环境也不会被删除。除此之外，该环境在表达式序列执行完毕后由解释器自动回收。
@@ -35,7 +96,7 @@ def 用来强调声明，` = ` 强调赋值，或者更改，类似于 `set!`。
 ```
 # 定义 x 变量为 5
 def x 5;
-# 定义sum函数，接受两个参数，返回它们的和
+# 定义 sum 函数，接受两个参数，返回它们的和
 def sum(x, y) x + y;
 ```
 
@@ -73,9 +134,23 @@ characters = pair("Skadi", pair("Orcinus orca", pair("Kal'tsit", pair("Lynx lynx
 
 ## 库函数
 
+### 内置库
+
 ***
 
-**`pair`**
+#### exit
+
+***
+
+#### typeid
+
+***
+
+#### error
+
+***
+
+#### pair
 
 ```
 pair(front-value, rear-value);
@@ -92,7 +167,28 @@ pair(front-value, rear-value);
 
 ***
 
-**`set-car!`**
+#### append
+
+***
+
+#### append!
+***
+
+#### caar
+***
+
+#### cadr
+***
+
+#### car
+***
+
+#### cdr
+
+***
+
+
+#### set-car!
 
 ```
 set-car!( &pair, value );
@@ -110,7 +206,7 @@ set-car!( &pair, value );
 
 ***
 
-**`set-cdr!`**
+#### set-cdr!
 
 ```
 set-cdr!( &pair, value );
@@ -125,3 +221,9 @@ set-cdr!( &pair, value );
 
 返回值：
 &emsp; 返回一个bool值，永远为true。
+
+### io库
+
+#### print
+
+### fs库

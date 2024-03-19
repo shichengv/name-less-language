@@ -294,7 +294,7 @@ static Value* eval_assignment(TokenAssign* exp, Environment* env)
 #ifdef WINDOWS
 		std::wstring error = L"\x8d4b\x503c\x8bed\x53e5\x7684\x5de6\x4fa7\x5fc5\x987b\x4e3a\x4e00\x4e2a\x53d8\x91cf\xff5e\x28\x2220\x30fb\x3c9\x3c\x20\x29\x2312\x266a";
 #else
-		std::string error = "\u8d4b\u503c\u8bed\u53e5\u7684\u5de6\u4fa7\u5fc5\u987b\u4e3a\u4e00\u4e2a\u53d8\u91cf\uff5e\u28\u2220\u30fb\u3c9\u3c\u20\u29\u2312\u266a";
+		std::string error = "\u8d4b\u503c\u8bed\u53e5\u7684\u5de6\u4fa7\u5fc5\u987b\u4e3a\u4e00\u4e2a\u53d8\u91cf\uff5e\u0028\u2220\u30fb\u03c9\u003c\u0020\u0029\u2312\u266a";
 #endif // WINDOWS
 
 		throw_eval_exception(error);

@@ -20,7 +20,6 @@ public:
 		void* body;
 		Token* ref;
 		std::vector<Token*>* prog;
-		std::vector<Token*>* items;
 		
 	} value;
 

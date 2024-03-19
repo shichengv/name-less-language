@@ -456,14 +456,6 @@ static Token* parse_prog(bool *skip_expression_separator)
 	return token_prog;
 }
 
-static Token* parse_list(bool* skip_expression_separator)
-{
-	Token* list = DBG_NEW Token(TOKEN_FLAG_IS_LIST);
-	list->value.items = delimited('(', ')', ',', parse_expression);
-	
-	return list;
-}
-
 static Token* parse_def(bool* skip_expression_separator)
 {
 	skip_kw("def");
@@ -525,13 +517,6 @@ static Token* parse_atom(bool* skip_expression_separator)
 		if (is_kw("def"))
 		{
 			return parse_def(skip_expression_separator);
-		}
-
-		// 如果当前的token不为空，且字符串为关键字的list
-		if (is_kw("list"))
-		{
-			NO_RETURN_NEXT_TOEKN
-			return parse_list(skip_expression_separator);
 		}
 
 		if (is_kw("true") || is_kw("false"))

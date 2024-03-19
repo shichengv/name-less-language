@@ -241,20 +241,20 @@ static void construct_token(Token* token, std::string& ast)
 	{
 		construct_token_call((TokenCalls*)token->value.body, ast);
 	}
-	else if (token->flag == TOKEN_FLAG_IS_LIST)
-	{
-		HTAB
-			ast += "\"list\": \n";
-		HTAB
-			ast += "[\n";
+	//else if (token->flag == TOKEN_FLAG_IS_LIST)
+	//{
+	//	HTAB
+	//		ast += "\"list\": \n";
+	//	HTAB
+	//		ast += "[\n";
 
-		deepin++;
-		construct_token_prog(token->value.items, ast);
-		deepin--;
+	//	deepin++;
+	//	construct_token_prog(token->value.items, ast);
+	//	deepin--;
 
-		HTAB
-			ast += "]\n";
-	}
+	//	HTAB
+	//		ast += "]\n";
+	//}
 	else if (token->flag == TOKEN_FLAG_IS_REF)
 	{
 		HTAB

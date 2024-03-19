@@ -1,5 +1,6 @@
 #include "built_in.h"
 
+extern Value* built_in_list(std::vector<Value*>* args);
 extern Value* built_in_append(std::vector<Value*>* args);
 extern Value* built_in_set_append(std::vector<Value*>* args);
 extern Value* built_in_caar(std::vector<Value*>* args);
@@ -50,6 +51,9 @@ Value* calls_stdlib_built_in_func(uint64_t offset, std::vector<Value*>* args)
 		break;
 	case BUILT_IN_PAIR:
 		result = built_in_pair(args);
+		break;
+	case BUILT_IN_LIST:
+		result = built_in_list(args);
 		break;
 	case BUILT_IN_TYPEID:
 		result = built_in_typeid(args);

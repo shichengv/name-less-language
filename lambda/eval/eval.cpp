@@ -35,23 +35,23 @@ static void use_typeid_error(uint8_t flag)
 	switch (flag)
 	{
 	case VALUE_IS_NUM:
-		typeinfo = STR(" ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ number");
+		typeinfo = STR(" ÓëÔ¤ÆÚÀàÐÍ²»Æ¥Åä£¬´«ÈëµÄÊÇ number");
 		break;
 	case VALUE_IS_STRING:
-		typeinfo = STR(" ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ string");
+		typeinfo = STR(" ÓëÔ¤ÆÚÀàÐÍ²»Æ¥Åä£¬´«ÈëµÄÊÇ string");
 		break;
 	case VALUE_IS_LOGICAL:
-		typeinfo = STR(" ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ bool");
+		typeinfo = STR(" ÓëÔ¤ÆÚÀàÐÍ²»Æ¥Åä£¬´«ÈëµÄÊÇ bool");
 		break;
 	case VALUE_IS_LAMBDA:
 	case VALUE_IS_STD_FUNC_OFFSET:
-		typeinfo = STR(" ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ lambda");
+		typeinfo = STR(" ÓëÔ¤ÆÚÀàÐÍ²»Æ¥Åä£¬´«ÈëµÄÊÇ lambda");
 		break;
 	case VALUE_IS_PAIR:
-		typeinfo = STR(" ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pair");
+		typeinfo = STR(" ÓëÔ¤ÆÚÀàÐÍ²»Æ¥Åä£¬´«ÈëµÄÊÇ pair");
 		break;
 	case VALUE_IS_REF:
-		typeinfo = STR(" ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ref");
+		typeinfo = STR(" ÓëÔ¤ÆÚÀàÐÍ²»Æ¥Åä£¬´«ÈëµÄÊÇ ref");
 		break;
 	default:
 		break;
@@ -93,7 +93,7 @@ static inline uint64_t use_logical(Value* value)
 static Value* apply_op(std::string* op, Value* left, Value* right, Environment* env)
 {
 	Value* result = DBG_NEW Value;
-	// Îªï¿½Ë±ï¿½ï¿½ï¿½Í³Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½apply_opï¿½ï¿½ï¿½Ó»ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½evalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ÎªÁË±£³ÖÍ³Ò»£¬ÎÒÃÇ²»ÔÚapply_opÌí¼Ó»ØÊÕ¶¯×÷£¬»ØÊÕ¶¯×÷Ö»ÄÜÓÉevalº¯ÊýÉèÖÃ
 	//	env->parent->constant.push_back(value);
 
 	if (!strcmp(op->c_str(), "+"))
@@ -294,15 +294,15 @@ static Value* eval_assignment(TokenAssign* exp, Environment* env)
 #ifdef WINDOWS
 		std::wstring error = L"\x8d4b\x503c\x8bed\x53e5\x7684\x5de6\x4fa7\x5fc5\x987b\x4e3a\x4e00\x4e2a\x53d8\x91cf\xff5e\x28\x2220\x30fb\x3c9\x3c\x20\x29\x2312\x266a";
 #else
-		std::string error = "\u8d4b\u503c\u8bed\u53e5\u7684\u5de6\u4fa7\u5fc5\u987b\u4e3a\u4e00\u4e2a\u53d8\u91cf\uff5e\u0028\u2220\u30fb\u03c9\u003c\u0020\u0029\u2312\u266a";
+		std::string error = "\u8d4b\u503c\u8bed\u53e5\u7684\u5de6\u4fa7\u5fc5\u987b\u4e3a\u4e00\u4e2a\u53d8\u91cf\uff5e\u28\u2220\u30fb\u3c9\u3c\u20\u29\u2312\u266a";
 #endif // WINDOWS
 
 		throw_eval_exception(error);
 	}
 	/*	
 	NOTICE:
-		ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Öµ ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´Ë¹ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ëµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ê½Îªï¿½ï¿½Öµï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Öµ
-		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½Ê¹ï¿½Ã¸Ã·ï¿½ï¿½ï¿½Öµï¿½ï¿½
+		¶ÔÓÚ ¸³Öµ µÈÊ½£¬½âÊÍÆ÷ÔÚ´Ë¹¹½¨Ò»¸öÐÂÖµÓÃÀ´·µ»Ø£¬ÕâÖÖÇé¿öÓÃÀ´Ó¦¶ÔÓëµ±Ç°»·¾³µÄ×îºóÒ»¾ä±í´ïÊ½Îª¸³ÖµµÈÊ½£¬½âÊÍÆ÷¹¹½¨Ò»¸öÐÂÖµ
+		²¢½«ÐÂÖµÌí¼Óµ½ÁÙÊ±Êý¾Ý»ØÊÕÆ÷£¬ÕâÑù£¬µ±Ç°»·¾³µÄ¸¸»·¾³¿ÉÒÔÖ±½ÓÊ¹ÓÃ¸Ã·µ»ØÖµ¡£
 	*/
 	Value* result = DBG_NEW Value( env->set(lrvalue->left->value.str, eval(lrvalue->right, env)));
 	env->parent->constant.push_back(result);
@@ -310,7 +310,7 @@ static Value* eval_assignment(TokenAssign* exp, Environment* env)
 	//return env->set(lrvalue->left->value.str, eval(lrvalue->right, env));
 }
 
-// ï¿½ï¿½ï¿½lambdaï¿½ï¿½envï¿½Úµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ÕµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ô¾Ö²ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½
+// Èç¹ûlambdaµÄenvÔÚµ±Ç°»·¾³µÄ´ý»ØÊÕµÄ»·¾³ÐòÁÐÖÐ£¬½âÊÍÆ÷Ò²²»»ØÊÕµ±Ç°»·¾³¡£ÕâÖÖÇé¿öÓÃÓÚÓ¦¶Ô¾Ö²¿»·¾³Ç¶Ì×
 static bool match_env(std::vector<Environment*>* env_sequence, Environment* lambda_local_env){
 	for (auto item_env = env_sequence->begin(); item_env != env_sequence->end(); item_env++)
 		if (reinterpret_cast<uint64_t>(*item_env) == reinterpret_cast<uint64_t>(lambda_local_env))
@@ -327,7 +327,7 @@ Value* eval_prog(std::vector<Token*>* progs, Environment* env)
 	{
 		result = eval(*exp, env);
 
-		// ï¿½Æ³ï¿½ cache data
+		// ÒÆ³ý cache data
 		std::for_each(env->constant.rbegin(), env->constant.rend(), [](Value* value) {delete value; });
 		env->constant.erase(env->constant.begin(), env->constant.end());
 
@@ -342,7 +342,7 @@ static Value* eval_calls(TokenCalls* calls, std::vector<Value*>& args_list, Envi
 {
 	Value* result = NULL;
 	Value* tmp_result = NULL;
-	// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸Ãºï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½lambdaÊµï¿½ï¿½
+	// Í¨¹ýµ÷ÓÃµÄº¯ÊýÃû×ÖÀ´»ñµÃ¸Ãº¯Êý¶ÔÓ¦µÄlambdaÊµÌå
 	Value* func = env->get(calls->func->value.str);
 	if (func->flag == VALUE_IS_STD_FUNC_OFFSET)
 	{
@@ -352,30 +352,30 @@ static Value* eval_calls(TokenCalls* calls, std::vector<Value*>& args_list, Envi
 	else
 	{
 		ValueLambda* value_lambda = (ValueLambda*)func->value.lambda;
-		// ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½rclï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½
-		// ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ï¿½
+		// µ÷ÓÃÍ¨¹ýrclÓïÑÔ¶¨ÒåµÄº¯Êý
+		// Èç¹ûÊµ²ÎÊýÁ¿²»µÈÓÚÐÎ²ÎÊýÁ¿£¬¾ÍÅ×³ö´íÎó
 		if (calls->args->size() != value_lambda->func_ptr->args->size())
 			throw "The expected number of parameters received does not match the actual number of parameters passed in...";
 
-		// Îªï¿½Âºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ÎªÐÂº¯Êý¹¹ÔìÒ»¸ö»·¾³
 		Environment* new_env = new Environment(value_lambda->env);
 		auto args = value_lambda->func_ptr->args->begin(); 
 		auto parameter = args_list.begin();
 		while ( args != value_lambda->func_ptr->args->end())
 		{
-			// ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸Ä·ï¿½ï¿½Å£ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+			// ÔÚÐÂ¹¹ÔìµÄ»·¾³ÖÐÉèÖÃ¸Ä·ûºÅ£¬ÒÔ¼°Æä¹ØÁªµÄÖµ
 			new_env->def(*args, *parameter);
 			
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½++
+			// µü´úÆ÷++
 			args++;
 			parameter++;
 		}
-		// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
+		// »ñÈ¡º¯ÊýµÄ±í´ïÊ½ÐòÁÐ£¬½âÊÍÖ´ÐÐ
 		Token* token_func_prog = (Token*)value_lambda->func_ptr->body;
 		if (token_func_prog->flag == TOKEN_FLAG_IS_PROG)
 		{
-			// ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½evalÖ±ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½evalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½âµ½tokenÎªprogÊ±ï¿½ï¿½ï¿½Ù´Î´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµ
-			// ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð±ï¿½Òªï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ê±ï¿½ï¿½Òªï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½eval_prog
+			// ËäÈ»¿ÉÒÔÊ¹ÓÃevalÖ±½Ó½øÐÐÇóÖµ£¬µ«ÊÇÈç¹ûevalº¯Êý¼ì²âµ½tokenÎªprogÊ±»áÔÙ´Î´´½¨Ò»¸öÐÂ»·¾³£¬¶ÔÓÚº¯Êýµ÷ÓÃÀ´Ëµ
+			// ÕâÊÇÃ»ÓÐ±ØÒªµÄ£¬ËùÒÔ´ËÊ±ÐèÒª»ñÈ¡±í´ïÊ½ÐòÁÐ£¬ÊÖ¶¯µ÷ÓÃeval_prog
 			std::vector<Token*>* func_expressions = (std::vector<Token*>*)token_func_prog->value.prog;
 			tmp_result = eval_prog(func_expressions, new_env);
 		}
@@ -386,13 +386,13 @@ static Value* eval_calls(TokenCalls* calls, std::vector<Value*>& args_list, Envi
 		result = DBG_NEW Value(tmp_result);
 		env->parent->constant.push_back(result);
 
-		// ï¿½Ð¶ï¿½resultï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ÅÐ¶ÏresultÊÇÒ»¸öº¯Êý
 		if (result->flag == VALUE_IS_LAMBDA)
 		{
 			ValueLambda* v_lambda = (ValueLambda*)result->value.lambda;
 			if (reinterpret_cast<uint64_t>(v_lambda->env) == reinterpret_cast<uint64_t>(new_env)
 				|| match_env(&new_env->env_sequence, v_lambda->env)) 
-				// ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// Ìí¼Óµ½ËüµÄ¸¸»·¾³ÖÐµÄ»·¾³ÐòÁÐ
 				env->env_sequence.push_back(new_env);
 			else
 				delete new_env;
@@ -412,13 +412,13 @@ static Value* eval_if(TokenIf* token_if, Environment* env)
 	/*
 
 	NOTICE:
-		Ò»ï¿½ï¿½È¡ï¿½Éµï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½Ö»ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îª0ï¿½ï¿½
-		ï¿½ï¿½ï¿½ï¿½ false ï¿½ï¿½ nil ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½Çµï¿½Î»ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Îª 0ï¿½ï¿½ ï¿½ï¿½ï¿½Ô²ï¿½È¡ elseï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		ï¿½ï¿½doubleï¿½ï¿½ï¿½Í´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Ç³ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½
+		Ò»¸öÈ¡ÇÉµÄÉè¼Æ£¬½âÎö·ÖÖ§Ìõ¼þÊ±²¢²»¼ì²âËüµÄÌõ¼þ½á¹ûÀàÐÍ£¬Ö»ÅÐ¶ÏËûµÄÎ»ÏòÁ¿ÊÇ·ñÎª0¡£
+		¶ÔÓÚ false »ò nil ÀàÐÍ£¬ËüÃÇµÄÎ»ÏòÁ¿Ê¼ÖÕÎª 0£¬ ËùÒÔ²ÉÈ¡ else·ÖÖ§¡£ÓÉÓÚÊý×ÖÊÇ
+		ÓÉdoubleÀàÐÍ´æ´¢£¬ËùÒÔ¼´Ê¹º¯Êý·µ»ØÖµÎª0£¬Ìõ¼þÒ²ÊÇ³ÉÁ¢µÄ¡£
 
 	*/
 
-	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½×¢ï¿½ï¿½	*/
+	/* ÏÂÃæÕâÁ½ÐÐ´úÂë¿ÉÒÔ±»×¢ÊÍ	*/
 	//if (result->flag != VALUE_IS_LOGICAL && result->flag != VALUE_IS_NIL)
 	//	result->value.logical = 0x1;
 
@@ -432,10 +432,10 @@ static Value* eval_if(TokenIf* token_if, Environment* env)
 }
 
 /*
-	ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	Ò»ï¿½ï¿½ï¿½òµ¥µï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½Ä¹ï¿½ï¿½Ì£ï¿½ï¿½ï¿½ï¿½â²¿ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½valueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½
-	ï¿½â²¿ï¿½ï¿½ï¿½Ì²ï¿½ï¿½Ü£ï¿½Ò²ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ä»ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½
-	eval()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Valueï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½evalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Value
+	ÇóÖµÆ÷¹ý³Ì
+	Ò»¸ö¼òµ¥µÄÔ¼Êø£¬Èç¹ûÇóÖµÆ÷ÄÚ²¿µ÷ÓÃÁËÍâ²¿µÄ¹ý³Ì£¬¶øÍâ²¿µÄ¹ý³ÌÉêÇëÁËvalue¶ÔÏó£¬ÇóÖµÆ÷ÐèÒª½«¸Ã¶ÔÏó¼ÓÈëµ½»ØÊÕ¶ÓÁÐÖÐ
+	Íâ²¿¹ý³Ì²»ÄÜ£¬Ò²²»Ó¦¸ÃÐÞ¸ÄÇóÖµÆ÷µÄ»ØÊÕ¶ÓÁÐ
+	eval()º¯Êý²¢²»±£´æValue£¬ÔÚÊ¹ÓÃevalº¯Êý¸³ÖµµÄÊ±ºòÐèÒª¿¼ÂÇÊÇ·ñÐèÒª¿½±´¸ÃValue
 */
 static Value* eval(Token* exp, Environment* env)
 {
@@ -445,7 +445,7 @@ static Value* eval(Token* exp, Environment* env)
 	case TOKEN_FLAG_IS_BOOL:
 	{
 		result = DBG_NEW Value(VALUE_IS_LOGICAL);
-		// ï¿½ï¿½Öµï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½env->setï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½È»ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Öµ
+		// ¸ÃÖµÊÇÒ»¸öÁÙÊ±µÄÖµ£¬ºóÐøÍ¨¹ýenv->set·½·¨¿½±´¸ÃÖµ£¬È»ºóÔÚ±í´ïÊ½½áÊøÉ¾³ý¸ÃÖµ
 		env->parent->constant.push_back(result);
 		result->value.logical = exp->value.bits;
 		break;
@@ -453,7 +453,7 @@ static Value* eval(Token* exp, Environment* env)
 	case TOKEN_FLAG_IS_NUM:
 	{
 		result = DBG_NEW Value(VALUE_IS_NUM);
-		// ï¿½ï¿½Öµï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½env->setï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½È»ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Öµ
+		// ¸ÃÖµÊÇÒ»¸öÁÙÊ±µÄÖµ£¬ºóÐøÍ¨¹ýenv->set·½·¨¿½±´¸ÃÖµ£¬È»ºóÔÚ±í´ïÊ½½áÊøÉ¾³ý¸ÃÖµ
 		env->parent->constant.push_back(result);
 		result->value.number = std::stod(*exp->value.str);
 		break;
@@ -474,22 +474,22 @@ static Value* eval(Token* exp, Environment* env)
 	}
 	case TOKEN_FLAG_IS_LAMBDA:
 	{
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Â¹ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï·¨ï¿½ï¿½
+		// ¶ÔÓÚÕâÖÖÇé¿ö£¬ÎÒÃÇÐèÒªÐÂ¹¹ÔìÒ»¸öÓï·¨Ê÷
 		TokenLambda* token_lambda = (TokenLambda*)exp->value.body;
 		result = DBG_NEW Value(VALUE_IS_LAMBDA);
 
-		// ï¿½Â½ï¿½Ò»ï¿½ï¿½ValueLambdaÊµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½Ð´Ë´ï¿½ï¿½ï¿½ï¿½Â½ï¿½valuelambdaÊµï¿½ï¿½
+		// ÐÂ½¨Ò»¸öValueLambdaÊµÀý£¬´úÂëÖÐÖ»ÓÐ´Ë´¦»áÐÂ½¨valuelambdaÊµÀý
 		ValueLambda* value_lambda = DBG_NEW ValueLambda;
 
-		// ï¿½ï¿½ï¿½ï¿½valuelambdaï¿½ï¿½value
+		// Á¬½Óvaluelambdaµ½value
 		result->value.lambda = value_lambda;
 
-		// ï¿½ï¿½ï¿½ï¿½ value_lambda
+		// ÉèÖÃ value_lambda
 		value_lambda->func_ptr = token_lambda;
-		// ï¿½ï¿½lambdaï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ç°ï¿½Ä»ï¿½ï¿½ï¿½
+		// ½«lambdaµÄ»·¾³ÉèÖÃÎªµ±Ç°µÄ»·¾³
 		value_lambda->env = env;
 
-		// ï¿½ï¿½ï¿½ï¿½lambdaï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lambdaÖµï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùºó£¬¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð©Êµï¿½ï¿½
+		// ½«¸ÃlambdaÌí¼Óµ½¸¸»·¾³µÄlambdaÖµÐòÁÐ£¬µ±¾Ö²¿»·¾³±»Ïú»Ùºó£¬¸¸»·¾³Ïú»ÙÕâÐ©ÊµÀý
 		env->parent->sequence_value_lambda.push_back(value_lambda);
 		env->parent->constant.push_back(result);
 		break;
@@ -497,20 +497,20 @@ static Value* eval(Token* exp, Environment* env)
 	case TOKEN_FLAG_IS_PROG:
 	{
 		/*
-			ï¿½ï¿½ï¿½ï¿½ { } ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ä¾Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ð¡ï¿½
+			¶ÔÓÚ { } ´úÂë¿é£¬Ëü¾ßÓÐ¶ÀÁ¢µÄ¾Ö²¿»·¾³£¬Ëü²»½öÊÇÒ»¸ö±í´ïÊ½ÐòÁÐ¡£
 		*/
 
-		/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ë½«ï¿½ï¿½Îª { } ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½é´´ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾Ö²ï¿½ï¿½ï¿½ï¿½ï¿½, Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½Ò»ï¿½ã£¬×¢ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ */
+		/* ÏÂÃæÁ½ÐÐ´úÂë½«»áÎª { } °ü¹üµÄ´úÂë¿é´´½¨Ò»¸ö¶ÀÁ¢µÄ¾Ö²¿»·¾³, ÎªÁËÈÃËü¸üº¯ÊýÊ½Ò»µã£¬×¢ÊÍµôËüÃÇ */
 		Environment* new_env = DBG_NEW Environment(env);
 		result = eval_prog(exp->value.prog, new_env);
 
-		// ï¿½Ð¶ï¿½resultï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ÅÐ¶ÏresultÊÇÒ»¸öº¯Êý
 		if (result->flag == VALUE_IS_LAMBDA)
 		{
 			ValueLambda* v_lambda = (ValueLambda*)result->value.lambda;
 			if (reinterpret_cast<uint64_t>(v_lambda->env) == reinterpret_cast<uint64_t>(new_env)
 				|| match_env(&new_env->env_sequence, v_lambda->env)) 
-				// ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// Ìí¼Óµ½ËüµÄ¸¸»·¾³ÖÐµÄ»·¾³ÐòÁÐ
 				env->env_sequence.push_back(new_env);
 			else
 				delete new_env;
@@ -523,18 +523,18 @@ static Value* eval(Token* exp, Environment* env)
 	case TOKEN_FLAG_IS_CALLS:
 	{
 		TokenCalls* calls = (TokenCalls*)exp->value.body;
-		// Êµï¿½ï¿½ï¿½Ð±ï¿½
+		// Êµ²ÎÁÐ±í
 		std::vector<Value*> args_list;
 
-		// ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ð±ï¿½
+		// ¹¹ÔìÊµ²ÎÁÐ±í
 		for (auto tokens = calls->args->begin(); tokens != calls->args->end(); tokens++)
 		{
 			Token* tok = *tokens;
 			Value* parameter;
-			// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½Ò»ï¿½ï¿½Valueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½Ý¡ï¿½
-			// eval()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Valueï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½evalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Value
+			// »ñÈ¡²ÎÊý£¬ÕâÀïÐÂ½¨Ò»¸öValue£¬²ÎÊý»ØÊÕµÄÊ±ºò»áÇå³ýÕâÐ©Êý¾Ý¡£
+			// eval()º¯Êý²¢²»±£´æValue£¬ÔÚÊ¹ÓÃevalº¯Êý¸³ÖµµÄÊ±ºòÐèÒª¿¼ÂÇÊÇ·ñÐèÒª¿½±´¸ÃValue
 			parameter = DBG_NEW Value(eval(tok, env));
-			// ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+			// Ìí¼Óµ½²ÎÊýÁÐ±í
 			env->constant.push_back(parameter);
 			args_list.push_back(parameter);
 		}
@@ -577,51 +577,13 @@ static Value* eval(Token* exp, Environment* env)
 		break;
 
 	}
-	case TOKEN_FLAG_IS_LIST:
-	{
-
-		if (exp->value.items->size() == 0)
-		{
-			result = DBG_NEW Value(VALUE_IS_PAIR);
-
-			ValuePair* root_pair = DBG_NEW ValuePair;
-			root_pair->front = DBG_NEW Value(VALUE_IS_NIL);
-			root_pair->rear = DBG_NEW Value(VALUE_IS_NIL);
-			result->value.pair = root_pair;
-			env->parent->constant.push_back(result);
-			break;
-		}
-		else
-		{
-
-			result = DBG_NEW Value(VALUE_IS_NIL);
-			ValuePair* last_pair = NULL;
-			auto note_value = result;
-
-			for (auto iter_token = exp->value.items->begin(); iter_token != exp->value.items->end(); iter_token++)
-			{
-				note_value->flag = VALUE_IS_PAIR;
-				auto tmp_pair = DBG_NEW ValuePair;
-				note_value->value.pair = tmp_pair;
-				last_pair = tmp_pair;
-
-				Value* item = eval(*iter_token, env);
-				tmp_pair->front = DBG_NEW Value(item);
-				tmp_pair->rear = DBG_NEW Value(VALUE_IS_NIL);
-				note_value = tmp_pair->rear;
-			}
-
-			env->parent->constant.push_back(result);
-			break;
-		}
-	}
 	default:
 		break;
 	}
 	return result;
 }
 
-// È«ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+// È«¾Ö»·¾³³õÊ¼»¯
 static void global_env_init()
 {
 	stdlib_init(&global_env->scope);
@@ -645,7 +607,7 @@ void eval_root_prog(Token* root)
 	{
 		result = eval(*exp, global_env);
 
-		// ï¿½Æ³ï¿½ cache data
+		// ÒÆ³ý cache data
 		std::for_each(global_env->constant.rbegin(), global_env->constant.rend(), [](Value* value) {delete value; });
 		global_env->constant.erase(global_env->constant.begin(), global_env->constant.end());
 

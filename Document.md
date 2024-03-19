@@ -140,6 +140,22 @@ characters = pair("Skadi", pair("Orcinus orca", pair("Kal'tsit", pair("Lynx lynx
 
 #### exit
 
+```
+exit();
+```
+
+例程描述：
+&emsp; 退出程序。
+
+参数：
+
+- 无
+
+返回值：
+
+&emsp; 无
+
+
 ***
 
 #### typeid
@@ -147,6 +163,33 @@ characters = pair("Skadi", pair("Orcinus orca", pair("Kal'tsit", pair("Lynx lynx
 ***
 
 #### error
+
+***
+
+#### list
+
+```
+list(value-1, value-2, value-3, ... );
+```
+
+例程描述：
+&emsp; 构造一个序对链表，最后一个序对的尾项为 nil。
+
+参数:
+- `value-1`: 值，也可以为表达式，该表达式的结果为一个值。
+- `value-2`: 值，也可以为表达式，该表达式的结果为一个值。
+- `value-3`: 值，也可以为表达式，该表达式的结果为一个值。
+- ......
+
+```
+list("Skadi", 3, 5, lambda(x, y) { x + y;}, "Orc");
+```
+
+lambda 类型也可以作为 list 的项。
+
+返回值：
+&emsp; 返回构造的序对链表首项。如果list参数为空，则返回一个序对，他的首项和尾项都为 nil。
+
 
 ***
 

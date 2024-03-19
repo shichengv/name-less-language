@@ -29,7 +29,6 @@ enum ENUM_TOKEN
 	TOKEN_FLAG_IS_KW,
 	TOKEN_FLAG_IS_VAR,
 	TOKEN_FLAG_IS_DEF,
-	TOKEN_FLAG_IS_LIST,
 	TOKEN_FLAG_IS_REF,
 };
 
@@ -49,7 +48,6 @@ enum ENUM_TOKEN
 #define SET_TOKEN_FLAG_TO_KW(token)				( (token).flag = TOKEN_FLAG_IS_KW )
 #define SET_TOKEN_FLAG_TO_VAR(token)			( (token).flag = TOKEN_FLAG_IS_VAR )
 #define SET_TOKEN_FLAG_TO_DEF(token)			( (token).flag = TOKEN_FLAG_IS_DEF )
-#define SET_TOKEN_FLAG_TO_LIST(token)			( (token).flag = TOKEN_FLAG_IS_LIST )
 #define SET_TOKEN_FLAG_TO_REF(token)			( (token).flag = TOKEN_FLAG_IS_REF )
 
 #define SET_TOKEN_TYPE(token, type_name)		(memcpy((token).type, type_name, sizeof(type_name)))

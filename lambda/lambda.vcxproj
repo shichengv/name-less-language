@@ -158,6 +158,7 @@
     <ClCompile Include="stdlib\built-in\pair\built_in_cadr.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_car.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_cdr.cpp" />
+    <ClCompile Include="stdlib\built-in\pair\built_in_list.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_pair.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_set_append.cpp" />
     <ClCompile Include="stdlib\built-in\pair\built_in_set_car.cpp" />

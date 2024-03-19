@@ -28,6 +28,11 @@ void stdlib_init(std::unordered_map<std::string, Value*>* scope)
 		func_name = "exit";
 		(*scope)[func_name] = built_in_exit;
 
+		Value* built_in_list = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
+		construct_func_addr(built_in_list, STDLIB_BUILT_IN, BUILT_IN_LIST);
+		func_name = "list";
+		(*scope)[func_name] = built_in_list;
+
 		Value* built_in_pair = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
 		construct_func_addr(built_in_pair, STDLIB_BUILT_IN, BUILT_IN_PAIR);
 		func_name = "pair";

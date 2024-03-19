@@ -10,7 +10,9 @@ void throw_analyzer_exception(std::wstring& msg)
 	msg = L"[ANALYZER]:[FATAL]\t" + msg;
 	std::wcout << msg;
 #ifdef WINDOWS
+#ifdef DEBUG
 	throw msg;
+#endif
 #endif // WINDOWS
 	exit(0);
 }
@@ -24,7 +26,9 @@ void throw_eval_exception(std::wstring& msg)
 	msg = L"[EVAL]:[ERROR]\t" + msg;
 	std::wcout << msg;
 #ifdef WINDOWS
+#ifdef DEBUG
 	throw msg;
+#endif
 #endif // WINDOWS
 	exit(0);
 

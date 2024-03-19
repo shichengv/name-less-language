@@ -55,9 +55,9 @@ Token::Token(uint8_t to_flag)
 	case TOKEN_FLAG_IS_DEF:
 		SET_TOKEN_TYPE(*this, "def");
 		break;
-	case TOKEN_FLAG_IS_LIST:
-		SET_TOKEN_TYPE(*this, "list");
-		break;
+	//case TOKEN_FLAG_IS_LIST:
+	//	SET_TOKEN_TYPE(*this, "list");
+	//	break;
 	case TOKEN_FLAG_IS_REF:
 		SET_TOKEN_TYPE(*this, "ref");
 		break;
@@ -125,15 +125,15 @@ Token::~Token()
 		delete value.ref;
 		break;
 	}
-	case TOKEN_FLAG_IS_LIST:
-	{
-		std::for_each(value.items->begin(), value.items->end(), [](Token* token) {
-			if (token)
-				delete token;
-		});
-		delete value.items;
-		break;	
-	}
+	//case TOKEN_FLAG_IS_LIST:
+	//{
+	//	std::for_each(value.items->begin(), value.items->end(), [](Token* token) {
+	//		if (token)
+	//			delete token;
+	//	});
+	//	delete value.items;
+	//	break;	
+	//}
 	default:
 		delete value.str;
 		break;

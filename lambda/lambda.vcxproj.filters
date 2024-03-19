@@ -156,6 +156,9 @@
     <ClCompile Include="stdlib\built-in\pair\built_in_set_append.cpp">
       <Filter>源文件\stdlib\built-in\pair</Filter>
     </ClCompile>
+    <ClCompile Include="stdlib\built-in\pair\built_in_list.cpp">
+      <Filter>源文件\stdlib\built-in\pair</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

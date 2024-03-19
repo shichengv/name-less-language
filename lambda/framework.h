@@ -1,10 +1,10 @@
 #pragma once
 
-//#define WINDOWS
+// #define WINDOWS
 #define LINUX
 
 // Visual Studio ต๗สิสนำร
-#define DEUBG
+// #define DEBUG
 
 
 

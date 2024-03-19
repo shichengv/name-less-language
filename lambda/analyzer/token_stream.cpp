@@ -31,7 +31,7 @@ static Token* read_next();
 
 void token_stream_init()
 {
-	keywords = DBG_NEW std::string(" if then else lambda ¦Ë true false def list ");
+	keywords = DBG_NEW std::string(" if then else lambda ¦Ë true false def ");
 	digit = DBG_NEW std::string("[0-9]");
 	id_start = DBG_NEW std::string("[a-z¦Ë_]");
 	id = DBG_NEW std::string("?!-<>=0123456789");

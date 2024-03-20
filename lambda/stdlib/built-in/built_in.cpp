@@ -1,5 +1,9 @@
 #include "built_in.h"
 
+extern Value* built_in_cddr(std::vector<Value*>* args);
+extern Value* built_in_is_string(std::vector<Value*>* args);
+extern Value* built_in_is_pair(std::vector<Value*>* args);
+extern Value* built_in_is_number(std::vector<Value*>* args);
 extern Value* built_in_list(std::vector<Value*>* args);
 extern Value* built_in_append(std::vector<Value*>* args);
 extern Value* built_in_set_append(std::vector<Value*>* args);
@@ -46,6 +50,9 @@ Value* calls_stdlib_built_in_func(uint64_t offset, std::vector<Value*>* args)
 	case BUILT_IN_CADR:
 		result = built_in_cadr(args);
 		break;
+	case BUILT_IN_CDDR:
+		result = built_in_cddr(args);
+		break;
 	case BUILT_IN_CDR:
 		result = built_in_cdr(args);
 		break;
@@ -54,6 +61,15 @@ Value* calls_stdlib_built_in_func(uint64_t offset, std::vector<Value*>* args)
 		break;
 	case BUILT_IN_LIST:
 		result = built_in_list(args);
+		break;
+	case BUILT_IN_IS_NUMBER:
+		result = built_in_is_number(args);
+		break;
+	case BUILT_IN_IS_STRING:
+		result = built_in_is_string(args);
+		break;
+	case BUILT_IN_IS_PAIR:
+		result = built_in_is_pair(args);
 		break;
 	case BUILT_IN_TYPEID:
 		result = built_in_typeid(args);

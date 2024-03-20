@@ -113,13 +113,14 @@ done:
 
 #else
 /*
-    Debug使用，需要定义 DEBUG 宏
+    Debug使用，需要定义 DEBUG 宏。
+    Visual Studio Debug，方便测试解释器的Bug以及特性，编译时需要注释 DEBUG 宏。
 */
 
     file_contents = DBG_NEW std::string;
     root = DBG_NEW Token(TOKEN_FLAG_IS_PROG);
 
-    std::ifstream file("example\\pair.nl");
+    std::ifstream file("example\\machine-with-register\\machine.nl");
 
     if (file.is_open()) {
         // Read the file line by line and append to the content

@@ -2,7 +2,27 @@
 
 这篇用来介绍 name-less 语言的一些特性。
 
-## 特性
+## 教程
+
+### 传参
+
+name-less 支持将函数作为参数传递给另一个函数，但是写法与常规写法有一点点不同。
+
+**lambda表达式作为参数**
+```
+# 函数参数以 `,` 符号分隔。
+for-each( lambda(item) { print(item + "\n") }, items );
+
+# lambda 表达式的函数体如果没有大括号包裹，则不需要 ';' 分隔符。
+for-each( lambda(item) print(item + "\n") , items );
+```
+**if条件分支作为参数**
+```
+# if 表达式作为参数，如果if表达式的else分支没有大括号包裹，则不需要 ';' 分隔符。
+ls = list(1, 2, 3, if nil then 5;  else  6 , 4);
+# 与 lambda 表达式相同
+ls = list(1, 2, 3, if nil { 5; } else { 6; }, 4);
+```
 
 ### 注释
 
@@ -73,6 +93,18 @@ deposit(account1, 1147);
 
 &emsp; if 语句也被视为一句表达式，它的返回值为最后执行的一个表达式的结果。如果条件成立，那么它返回 "then" 表达式序列的最后一个值，否则返回 "else" 表达式序列。解析分支条件时并不检测它的条件结果类型，只判断他的位向量是否为0。对于 false 或 nil 类型，它们的位向量始终为 0，所以采取 else分支。由于数字是由double类型存储，所以即使函数返回值为0(数字0)，条件也是成立的，仍然采取 then 分支。
 &emsp; then关键字的作用是用来忽略条件表达式的括号，如果为条件表达式增加括号，则必须省略then关键字，所以对于如下语法，if语句也是成立的（奇丑无比），建议使用统一的风格。
+
+**返回值**
+- 如果if语句拥有then和else分支，返回值为then或else分支最后一个表达式的结果。
+- 如果if语句只有then分支，如果条件不成立，返回值为 predicate 的结果。
+
+```
+if predicate 
+then
+	consequent
+[else
+	alternative]
+```
 
 ```
 if (a > 5)
@@ -155,7 +187,59 @@ exit();
 
 &emsp; 无
 
+***
 
+#### pair?
+
+```
+pair?(value);
+```
+
+例程描述：
+&emsp; 判断该值类型是否为 pair。
+
+参数：
+- 需要判断的值
+
+返回值：
+
+&emsp; 如果是则返回 true，否则返回false。
+
+***
+
+#### number?
+
+```
+number?(value);
+```
+
+例程描述：
+&emsp; 判断该值类型是否为 number。
+
+参数：
+- 需要判断的值
+
+返回值：
+
+&emsp; 如果是则返回 true，否则返回false。
+
+***
+
+#### string?
+
+```
+string?(value);
+```
+
+例程描述：
+&emsp; 判断该值类型是否为 string。
+
+参数：
+- 需要判断的值
+
+返回值：
+
+&emsp; 如果是则返回 true，否则返回false。
 ***
 
 #### typeid

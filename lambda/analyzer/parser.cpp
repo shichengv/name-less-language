@@ -5,7 +5,8 @@
 
 static std::unordered_map<std::string, int>* Precedence;
 
-static std::vector<Token*>* delimited(char start, char stop, char separator, Token* (*parser)(bool* skip_expression_separator));
+static std::vector<Token*>* delimited_parameter(char start, char stop, char separator, Token* (*parser)(bool* skip_expression_separator));
+static std::vector<Token*>* delimited_expression(char start, char stop, char separator, Token* (*parser)(bool* skip_expression_separator));
 static Token* parse_prog(bool* skip_expression_separator);
 static Token* parse_atom(bool* skip_expression_separator);
 static Token* maybe_call(Token* (*expr)(bool* skip_expression_separator), bool* skip_expression_separator);
@@ -231,12 +232,13 @@ static std::vector<std::string*>* delimited_varname(char start, char stop, char 
 	return args;
 }
 
-static std::vector<Token*>* delimited(char start, char stop, char separator, Token * (*parser)(bool *skip_expression_separator))
+static std::vector<Token*>* delimited_expression(char start, char stop, char separator, Token * (*parser)(bool *skip_expression_separator))
 {
 	std::vector<Token*>* args = DBG_NEW std::vector<Token*>;
 
 	/*
-		是否需要跳过表达式分隔符，如果表达式上一个表达式存在 prog if lambda的多重表达式形式，则设置改值，表示需要跳过 " ; "
+		是否需要跳过表达式分隔符，如果表达式上一个表达式存在 prog if lambda的多重表达式形式，则设置改值，表示需要跳过 spearator，
+		如果参数是 lambda 表达式，且具有代码块，则不应该跟 分隔符。
 	*/
 	bool skip_expression_separator = false;
 	/*
@@ -276,6 +278,51 @@ static std::vector<Token*>* delimited(char start, char stop, char separator, Tok
 	return args;
 }
 
+static std::vector<Token*>* delimited_parameter(char start, char stop, char separator, Token * (*parser)(bool *skip_expression_separator))
+{
+	std::vector<Token*>* args = DBG_NEW std::vector<Token*>;
+
+	/*
+		是否需要跳过表达式分隔符，如果表达式上一个表达式存在 prog if lambda的多重表达式形式，则设置改值，表示需要跳过 spearator，
+		如果参数是 lambda 表达式，且具有代码块，则不应该跟 分隔符。
+	*/
+	bool skip_expression_separator = false;
+	/*
+		块的开头	
+	*/
+	bool first = true;
+
+	skip_punc(start);
+
+	while (!token_eof())
+	{
+		if (is_punc(stop))
+		{
+			break;
+		}
+
+		if (first)
+		{
+			first = false;
+		}
+		else
+		{
+			skip_punc(separator);
+		}
+
+		if (is_punc(stop))
+		{
+			break;
+		}
+
+		args->push_back(parser(&skip_expression_separator));
+	}
+
+	skip_punc(stop);
+
+	return args;
+}
+
 static Token* parse_calls(Token* func) 
 {
 	Token* token_call = DBG_NEW Token(TOKEN_FLAG_IS_CALLS);
@@ -283,7 +330,7 @@ static Token* parse_calls(Token* func)
 	TokenCalls* body_call = DBG_NEW TokenCalls;
 	token_call->value.body = body_call;
 	body_call->func = func;
-	body_call->args = delimited('(', ')', ',', parse_expression);
+	body_call->args = delimited_parameter('(', ')', ',', parse_expression);
 
 	return token_call;
 }
@@ -438,7 +485,7 @@ static Token* maybe_call(Token* (*expr)(bool *skip_expression_separator), bool *
 static Token* parse_prog(bool *skip_expression_separator)
 {
 	Token* token_prog = DBG_NEW Token(TOKEN_FLAG_IS_PROG);
-	token_prog->value.prog = delimited('{', '}', ';', parse_expression);
+	token_prog->value.prog = delimited_expression('{', '}', ';', parse_expression);
 
 	// 如果{ } 并未任何表达式，则为 空
 	if (token_prog->value.prog->size() == 0)
@@ -463,7 +510,7 @@ static Token* parse_def(bool* skip_expression_separator)
 	// 如果当前的token不为空，且类型为punc，并且值为 '('，进入该分支
 	Token* tok = token_next();
 
-	// 其实就是为了省略lambda关键字，当然你想加lambda关键字也可以
+	// 为了省略lambda关键字
 	if (is_punc('('))
 	{
 		TokenDef* body_def_func = DBG_NEW TokenDef;

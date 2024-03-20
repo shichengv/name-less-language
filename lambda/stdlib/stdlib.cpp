@@ -2,93 +2,55 @@
 #include "built-in/built_in.h"
 #include "io/io.h"
 
-static inline void construct_func_addr(Value* value, uint32_t stdlib_offset, uint32_t func_offset)
+/*
+
+例程描述：
+	注册库函数指定环境中，当环境被销毁时，这些函数也会被销毁
+
+*/
+static void register_func(std::unordered_map<std::string, Value*>* scope, const char* funcname, uint32_t stdlib_offset, uint32_t func_offset)
 {
-	value->value.bits = stdlib_offset;
-	value->value.bits <<= 32;
-	value->value.bits |= func_offset;
+	std::string func_name;
+
+	func_name = funcname;
+	Value* func = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
+	func->value.bits = stdlib_offset;
+	func->value.bits <<= 32;
+	func->value.bits |= func_offset;
+	(*scope)[func_name] = func;
+
 }
 
 void stdlib_init(std::unordered_map<std::string, Value*>* scope)
 {
-		std::string func_name;
+		register_func(scope, "print", STDLIB_IO, IO_PRINT);
 
-		Value* io_print = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(io_print, STDLIB_IO, IO_PRINT);
-		func_name = "print";
-		(*scope)[func_name] = io_print;
+		register_func(scope, "error", STDLIB_BUILT_IN, BUILT_IN_ERROR);
+		register_func(scope, "exit", STDLIB_BUILT_IN, BUILT_IN_EXIT);
 
-		Value* built_in_error = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_error, STDLIB_BUILT_IN, BUILT_IN_ERROR);
-		func_name = "error";
-		(*scope)[func_name] = built_in_error;
+		register_func(scope, "list", STDLIB_BUILT_IN, BUILT_IN_LIST);
+		register_func(scope, "pair", STDLIB_BUILT_IN, BUILT_IN_PAIR);
+		register_func(scope, "car", STDLIB_BUILT_IN, BUILT_IN_CAR);
+		register_func(scope, "caar", STDLIB_BUILT_IN, BUILT_IN_CAAR);
+		register_func(scope, "cadr", STDLIB_BUILT_IN, BUILT_IN_CADR);
+		register_func(scope, "cddr", STDLIB_BUILT_IN, BUILT_IN_CDDR);
+		register_func(scope, "cdr", STDLIB_BUILT_IN, BUILT_IN_CDR);
+		register_func(scope, "append", STDLIB_BUILT_IN, BUILT_IN_APPEND);
+		register_func(scope, "append!", STDLIB_BUILT_IN, BUILT_IN_SET_APPEND);
+		register_func(scope, "set-car!", STDLIB_BUILT_IN, BUILT_IN_SET_CAR);
+		register_func(scope, "set-cdr!", STDLIB_BUILT_IN, BUILT_IN_SET_CDR);
 
-		Value* built_in_exit = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_exit, STDLIB_BUILT_IN, BUILT_IN_EXIT);
-		func_name = "exit";
-		(*scope)[func_name] = built_in_exit;
+		register_func(scope, "number?", STDLIB_BUILT_IN, BUILT_IN_IS_NUMBER);
+		register_func(scope, "string?", STDLIB_BUILT_IN, BUILT_IN_IS_STRING);
+		register_func(scope, "pair?", STDLIB_BUILT_IN, BUILT_IN_IS_PAIR);
 
-		Value* built_in_list = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_list, STDLIB_BUILT_IN, BUILT_IN_LIST);
-		func_name = "list";
-		(*scope)[func_name] = built_in_list;
-
-		Value* built_in_pair = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_pair, STDLIB_BUILT_IN, BUILT_IN_PAIR);
-		func_name = "pair";
-		(*scope)[func_name] = built_in_pair;
-
-		Value* built_in_car = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_car, STDLIB_BUILT_IN, BUILT_IN_CAR);
-		func_name = "car";
-		(*scope)[func_name] = built_in_car;
-
-		Value* built_in_caar = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_caar, STDLIB_BUILT_IN, BUILT_IN_CAAR);
-		func_name = "caar";
-		(*scope)[func_name] = built_in_caar;
-
-		Value* built_in_cadr = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_cadr, STDLIB_BUILT_IN, BUILT_IN_CADR);
-		func_name = "cadr";
-		(*scope)[func_name] = built_in_cadr;
-
-		Value* built_in_cdr = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_cdr, STDLIB_BUILT_IN, BUILT_IN_CDR);
-		func_name = "cdr";
-		(*scope)[func_name] = built_in_cdr;
-
-
-		Value* built_in_set_car = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_set_car, STDLIB_BUILT_IN, BUILT_IN_SET_CAR);
-		func_name = "set-car!";
-		(*scope)[func_name] = built_in_set_car;
-
-		Value* built_in_set_cdr = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_set_cdr, STDLIB_BUILT_IN, BUILT_IN_SET_CDR);
-		func_name = "set-cdr!";
-		(*scope)[func_name] = built_in_set_cdr;
-		
-		Value* built_in_append = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_append, STDLIB_BUILT_IN, BUILT_IN_APPEND);
-		func_name = "append";
-		(*scope)[func_name] = built_in_append;
-
-		Value* built_in_set_append = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_set_append, STDLIB_BUILT_IN, BUILT_IN_SET_APPEND);
-		func_name = "append!";
-		(*scope)[func_name] = built_in_set_append;
-
-		Value* built_in_typeid = DBG_NEW Value(VALUE_IS_STD_FUNC_OFFSET);
-		construct_func_addr(built_in_typeid, STDLIB_BUILT_IN, BUILT_IN_TYPEID);
-		func_name = "typeid";
-		(*scope)[func_name] = built_in_typeid;
+		register_func(scope, "typeid", STDLIB_BUILT_IN, BUILT_IN_TYPEID);
 
 }
 
 void stdlib_clean()
 {
-	//delete stdlib_funcs;
+
 }
 
 Value* calls_stdlib_func(uint64_t func_addr, std::vector<Value*>* args_list)

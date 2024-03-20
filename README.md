@@ -50,3 +50,11 @@ ls
 ## 教程
 
 [参考手册](./Document.md)
+
+## TO-DO
+
+- [x] typeid 函数优化，添加 string? number? pair? 等类型判断函数。
+
+- [ ] eval函数实现，apply函数(将字符串面向作为函数的名字在环境中查找并调用)实现。
+
+- [ ] include, load 函数实现，加载文件。

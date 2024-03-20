@@ -162,26 +162,6 @@ static void construct_token_if(TokenIf* token_if, std::string& ast)
 
 }
 
-//static void construct_token_let_func(TokenDef* letfunc, std::string& ast)
-//{
-//	HTAB
-//		ast += "\"function name\": ";
-//	ast += *letfunc->var->value.str;
-//	ast += "\n";
-//	HTAB
-//		ast += "\"body\": \n";
-//	HTAB
-//		ast += "{\n";
-//	deepin++;
-//
-//	construct_token(letfunc->value, ast);
-//	deepin--;
-//
-//	HTAB
-//		ast += "}\n";
-//
-//}
-
 static void construct_token_let(TokenDef* letvar, std::string& ast)
 {
 	construct_token(letvar->var, ast);
@@ -241,20 +221,6 @@ static void construct_token(Token* token, std::string& ast)
 	{
 		construct_token_call((TokenCalls*)token->value.body, ast);
 	}
-	//else if (token->flag == TOKEN_FLAG_IS_LIST)
-	//{
-	//	HTAB
-	//		ast += "\"list\": \n";
-	//	HTAB
-	//		ast += "[\n";
-
-	//	deepin++;
-	//	construct_token_prog(token->value.items, ast);
-	//	deepin--;
-
-	//	HTAB
-	//		ast += "]\n";
-	//}
 	else if (token->flag == TOKEN_FLAG_IS_REF)
 	{
 		HTAB

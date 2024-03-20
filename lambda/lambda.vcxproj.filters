@@ -159,6 +159,18 @@
     <ClCompile Include="stdlib\built-in\pair\built_in_list.cpp">
       <Filter>源文件\stdlib\built-in\pair</Filter>
     </ClCompile>
+    <ClCompile Include="stdlib\built-in\built_in_is_number.cpp">
+      <Filter>源文件\stdlib\built-in</Filter>
+    </ClCompile>
+    <ClCompile Include="stdlib\built-in\built_in_is_pair.cpp">
+      <Filter>源文件\stdlib\built-in</Filter>
+    </ClCompile>
+    <ClCompile Include="stdlib\built-in\built_in_is_string.cpp">
+      <Filter>源文件\stdlib\built-in</Filter>
+    </ClCompile>
+    <ClCompile Include="stdlib\built-in\pair\built_in_cddr.cpp">
+      <Filter>源文件\stdlib\built-in\pair</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

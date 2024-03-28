@@ -78,14 +78,14 @@ Value* Environment::set(std::string* name, Value* value)
 			data = DBG_NEW Value(value);
 			Value* original = where_env->get(name);
 			// 自计算的值可以被强制重新定义
-			if (original->flag != VALUE_IS_LAMBDA)
-			{
+			//if (original->flag != VALUE_IS_LAMBDA)
+			//{
 				this->scope[*name] = data;
 				// 删除原先在环境中的数据
 				delete original;
-			}
-			else
-				throw* name + "variable can't redefine...";
+			//}
+			//else
+			//	throw* name + "variable can't redefine...";
 		}
 		else
 			// 去到变量存在的环境中更新该变量

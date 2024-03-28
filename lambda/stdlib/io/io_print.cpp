@@ -29,6 +29,9 @@ static uint64_t print(Value* value)
 			std::cout << "false";
 		}
 		break;
+	case VALUE_IS_LAMBDA:
+		std::cout << "lambda expression";
+		break;
 	case VALUE_IS_STRING:
 		std::cout << *value->value.str;
 		break;

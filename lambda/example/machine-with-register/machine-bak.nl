@@ -1,4 +1,4 @@
-# å¯„å­˜å™¨æœºå™¨
+# ¼Ä´æÆ÷»úÆ÷
 
 def assoc(key, records)
 {
@@ -40,9 +40,9 @@ def map(proc, lst) {
 
 
 
-# === æ¨¡æ‹Ÿå¯„å­˜å™¨æœºå™¨ === 
+# === Ä£Äâ¼Ä´æÆ÷»úÆ÷ === 
 
-# =============================== å®šä¹‰å¯„å­˜å™¨å¯¹è±¡ =============================================
+# =============================== ¶¨Òå¼Ä´æÆ÷¶ÔÏó =============================================
 def make-register(name) {
     contents = "*unassigned*";
     dispatch = lambda(message) {
@@ -53,13 +53,15 @@ def make-register(name) {
         else
             error("Unknown request -- REGISTER");
     }    
+    dispatch;
 }
 
-# è·å–å¯„å­˜å™¨çš„å€¼
+# »ñÈ¡¼Ä´æÆ÷µÄÖµ
 def get-contents(register) {
-    register("get");
+    get-register-contents = register("get");
+    get-register-contents();
 }
-# æ›´æ”¹å¯„å­˜å™¨çš„å†…å®¹
+# ¸ü¸Ä¼Ä´æÆ÷µÄÄÚÈİ
 def set-contents!(register, value) {
     set-the-register-contents = register("set");
     set-the-register-contents(value);
@@ -90,7 +92,7 @@ def set-contents!(register, value) {
 
 
 
-# =================================== å®šä¹‰æ ˆå¯¹è±¡ ===============================================
+# =================================== ¶¨ÒåÕ»¶ÔÏó ===============================================
 def make-stack() {
     s = nil;
     push = lambda(x) s = pair(x, s);
@@ -106,7 +108,7 @@ def make-stack() {
     }
     initialize = lambda() {
         s = nil;
-        print("\ndone\n");
+        print("done\n");
     }
     dispatch = lambda(message) {
         if (message == "push")
@@ -122,13 +124,13 @@ def make-stack() {
     dispatch;
 }
 
-# å‡ºæ ˆåŠ¨ä½œ
+# ³öÕ»¶¯×÷
 def pop(stack) {
     pop-the-stack = stack("pop");
     pop-the-stack(); 
 }
 
-# å…¥æ ˆåŠ¨ä½œ
+# ÈëÕ»¶¯×÷
 def push(stack, value) {
     push-the-stack = stack("push");
     push-the-stack(value);
@@ -154,9 +156,9 @@ def push(stack, value) {
 
 
 
-# ================================= è™šæ‹Ÿæœºå®šä¹‰ ================================================
+# ================================= ĞéÄâ»ú¶¨Òå ================================================
 
-# æ–°å»ºä¸€ä¸ªå¯„å­˜å™¨æœºå™¨
+# ĞÂ½¨Ò»¸ö¼Ä´æÆ÷»úÆ÷
 def make-new-machine() {
     pc = make-register("pc"); 
     flag = make-register("flag");
@@ -169,62 +171,37 @@ def make-new-machine() {
             list("initialize-stack", lambda() { stack("initialize"); } )
             );
 
-        # æœºå™¨å†…éƒ¨çš„å¯„å­˜å™¨è¡¨
+        # »úÆ÷ÄÚ²¿µÄ¼Ä´æÆ÷±í
         register-table = list( list("pc", pc), list("flag", flag));
 
-        machine-info = lambda() {
-            print("pc:");
-            print(get-contents(pc));
-            print("\n");
-
-            print("flag:");
-            print(get-contents(flag));
-            print("\n");
-
-            print("the-ops:");
-            print(the-ops);
-            print("\n");
-
-            print("register-table:");
-            print(register-table);
-            print("\n");
-        }
-
-        # ä¸ºè¯¥æœºå™¨æ–°å»ºä¸€ä¸ªå¯„å­˜å™¨
+        # Îª¸Ã»úÆ÷ĞÂ½¨Ò»¸ö¼Ä´æÆ÷
         allocate-register = lambda(name) {
-            reg = make-register(name);
             if assoc(name, register-table)
             then
                 error("Multiply defined register: " + name);
             else
-                register-table = pair( list(name, reg), register-table);
-            print(name + "  register-allocated\n");
-            reg;
+                register-table = pair( list(name, make-register(name)), register-table);
+            print(name + "register-allocated\n");
         }
 
         lookup-register = lambda(name) {
             val = assoc(name, register-table);
             if val
             then
-                # æå–å¯„å­˜å™¨çš„å€¼
+                # ÌáÈ¡¼Ä´æÆ÷µÄÖµ
                 cadr(val);
             else
                 error("Unknown register:" + name);
         }
 
         execute = lambda() {
-            print("å¼€å§‹æ‰§è¡ŒæŒ‡ä»¤åºåˆ—\n");
-            print("PCå¯„å­˜å™¨çš„å†…å®¹ä¸º:\n");
             insts = get-contents(pc);
-            print(insts);
-            print("\n");
             if insts == nil
             then
                 print("done");
             else
             {
-                inst-proc = instruction-execution-proc(car(insts));
-                inst-proc();
+                instruction-execution-proc(car(insts));
                 execute();
             }
         }
@@ -247,8 +224,6 @@ def make-new-machine() {
                 stack;
             else if (message == "operations")
                 the-ops;
-            else if (message == "machine-info")
-                machine-info;
             else 
                 error("Unknown request -- MACHINE");
         }
@@ -259,55 +234,51 @@ def make-new-machine() {
 }
 
 
-# ç”¨ç»™å®šçš„åå­—åœ¨ä¸€éƒ¨ç»™å®šçš„æœºå™¨é‡ŒæŸ¥çœ‹æœ‰å…³å¯„å­˜å™¨çš„å†…å®¹
+# ÓÃ¸ø¶¨µÄÃû×ÖÔÚÒ»²¿¸ø¶¨µÄ»úÆ÷Àï²é¿´ÓĞ¹Ø¼Ä´æÆ÷µÄÄÚÈİ
 def get-register(machine, reg-name) {
     get-reg = machine("get-register");
-    reg = get-reg(reg-name);
+    get-reg(reg-name);
 }
 
-# è®¾ç½®æ–°çš„è™šæ‹Ÿæœºçš„å†…å®¹
+# ÉèÖÃĞÂµÄĞéÄâ»úµÄÄÚÈİ
 def make-machine(register-names, ops, controller-text) {
 
-    print("\næ–°å»ºä¸€ä¸ªå¯„å­˜å™¨æœºå™¨ make-new-machine()\n");
+    print("ĞÂ½¨Ò»¸ö¼Ä´æÆ÷»úÆ÷ make-new-machine()\n");
     machine = make-new-machine();
 
-    print("\nå®‰è£…ä¸€ç³»åˆ—å¯„å­˜å™¨ machine(\"allocate-register\")\n");
+    print("°²×°Ò»ÏµÁĞ¼Ä´æÆ÷ machine(\"allocate-register\")\n");
     for-each(lambda(register-name) {
         allocate-register = machine("allocate-register");
         allocate-register(register-name);
     }, register-names);
     
-    print("\nå®‰è£…æ“ä½œ machine(\"install-operations\")\n");
+    print("°²×°²Ù×÷ machine(\"install-operations\")\n");
     install-operations = machine("install-operations");
     install-operations(ops);
 
-    print("\næ„é€ æŒ‡ä»¤åºåˆ— machine(\"install-instruction-sequence\")\n");
+    print("¹¹ÔìÖ¸ÁîĞòÁĞ machine(\"install-instruction-sequence\")\n");
     install-instruction-sequence = machine("install-instruction-sequence");
     install-instruction-sequence(assemble(controller-text, machine));
-
-    print("\nMachine Info:\n");
-    info = machine("machine-info");
-    info();
 
     machine;
 }
 
 
-# ç”¨æ¥å¯åŠ¨ä¸€ä¸ªæœºå™¨
+# ÓÃÀ´Æô¶¯Ò»¸ö»úÆ÷
 def start(machine) {
     start-machine = machine("start");
     start-machine();
 }
 
 
-# ç»™å®šä¸€ä¸ªè™šæ‹Ÿæœºå’Œä»–çš„å¯„å­˜å™¨åå­—ï¼Œè·å–å®ƒçš„å€¼
+# ¸ø¶¨Ò»¸öĞéÄâ»úºÍËûµÄ¼Ä´æÆ÷Ãû×Ö£¬»ñÈ¡ËüµÄÖµ
 def get-register-contents(machine, register-name) 
     print(get-contents(get-register(machine, register-name)));
 
-# ç»™å®šä¸€ä¸ªè™šæ‹Ÿæœºå’Œä»–çš„å¯„å­˜å™¨åå­—ï¼Œæ›´æ”¹å®ƒçš„å€¼
+# ¸ø¶¨Ò»¸öĞéÄâ»úºÍËûµÄ¼Ä´æÆ÷Ãû×Ö£¬¸ü¸ÄËüµÄÖµ
 def set-register-contents!(machine, register-name, value) {
     set-contents!(get-register(machine, register-name), value);
-    print("\nå¯„å­˜å™¨å€¼æ›´æ”¹å®Œæ¯•\n");
+    print("done");
 }
 
 
@@ -331,16 +302,16 @@ def set-register-contents!(machine, register-name, value) {
 
 
 
-# ==================================== æ±‡ç¼–è¯­è¨€ ========================================================
-# è¿‡ç¨‹assembleæ˜¯æ±‡ç¼–ç¨‹åºçš„ä¸»è¦å…¥å£ï¼Œå®ƒä»¥ä¸€ä¸ªæ§åˆ¶å™¨æ­£æ–‡å’Œç›¸åº”çš„æœºå™¨æ¨¡å‹ä½œä¸ºå‚æ•°ï¼Œ
-# è¿”å›å­˜å‚¨åœ¨æ¨¡å‹é‡Œçš„æŒ‡ä»¤åºåˆ—ã€‚
+# ==================================== »ã±àÓïÑÔ ========================================================
+# ¹ı³ÌassembleÊÇ»ã±à³ÌĞòµÄÖ÷ÒªÈë¿Ú£¬ËüÒÔÒ»¸ö¿ØÖÆÆ÷ÕıÎÄºÍÏàÓ¦µÄ»úÆ÷Ä£ĞÍ×÷Îª²ÎÊı£¬
+# ·µ»Ø´æ´¢ÔÚÄ£ĞÍÀïµÄÖ¸ÁîĞòÁĞ¡£
 
-# è¯¥è¿‡ç¨‹æ ¹æ®æ‰€æä¾›çš„æ§åˆ¶å™¨æ­£æ–‡æ„é€ å‡ºçš„åˆå§‹æŒ‡ä»¤è¡¨å’Œæ ‡å·åˆ—è¡¨ã€‚
-# extract-labels çš„ç¬¬äºŒä¸ªå‚æ•°æ˜¯ä¸€ä¸ªè¿‡ç¨‹ï¼Œè°ƒç”¨å®ƒå»å¤„ç†ä¸Šé¢å¾—åˆ°çš„ç»“æœã€‚
+# ¸Ã¹ı³Ì¸ù¾İËùÌá¹©µÄ¿ØÖÆÆ÷ÕıÎÄ¹¹Ôì³öµÄ³õÊ¼Ö¸Áî±íºÍ±êºÅÁĞ±í¡£
+# extract-labels µÄµÚ¶ş¸ö²ÎÊıÊÇÒ»¸ö¹ı³Ì£¬µ÷ÓÃËüÈ¥´¦ÀíÉÏÃæµÃµ½µÄ½á¹û¡£
 
 
 def assemble(controller-text, machine) {
-    print("\næ„é€ æ±‡ç¼–æŒ‡ä»¤åºåˆ—: ");
+    print("¹¹Ôì»ã±àÖ¸ÁîĞòÁĞ: ");
     print(controller-text);
     print("\n");
     extract-labels(controller-text, lambda(insts, labels) {
@@ -352,7 +323,7 @@ def assemble(controller-text, machine) {
 #   list("_init", list("assing", "b", reg("a")), "_done")
 
 def extract-labels(text, receive) {
-    print("\nè°ƒç”¨extract-labels()ï¼Œå½“å‰çš„textä¸ºï¼š");
+    print("µ÷ÓÃextract-labels()£¬µ±Ç°µÄtextÎª£º");
     print(text);
     print("\n");
     if text == nil
@@ -361,16 +332,14 @@ def extract-labels(text, receive) {
     else
         extract-labels( cdr(text), lambda(insts, labels) {
 
-            print("\nè°ƒç”¨receive()ï¼Œ\nå½“å‰çš„instsä¸º: ");
+            print("µ÷ÓÃreceive()£¬µ±Ç°µÄinstsÎª£º");
             print(insts);
-            print("\nå½“å‰çš„labelsä¸º: ");
-            print(labels);
             print("\n");
 
             next-inst = car(text);
             if string?(next-inst)
             then
-                receive(insts, pair(make-label-entry(next-inst, insts), labels));
+                receive(insts, pair(make-label-entry(next-inst, inst), labels));
             else
                 receive(pair(make-instruction(next-inst), insts), labels);
         } );
@@ -378,68 +347,31 @@ def extract-labels(text, receive) {
 
 
 def update-insts!(insts, labels, machine) {
-    print("\næ›´æ–°æŒ‡ä»¤åºåˆ— update-insts!:\n");
-    print("insts: ");
-    print(insts);
-    print("\n");
-
-    print("labels: ");
-    print(labels);
-    print("\n");
 
     pc = get-register(machine, "pc");
     flag = get-register(machine, "flag");
     stack = machine("stack");
     ops = machine("operations");
 
-    new-insts = list();
-
     for-each( lambda(inst) { 
         set-instruction-execution-proc!(inst, 
         make-execution-procedure(
-            instruction-text(inst), labels, machine, pc, flag, stack, ops) ); 
-        print(inst);
-        append!(&new-insts, inst);
-        }, 
+            instruction-text(inst), labels, machine, pc, flag, stack, ops) ) }, 
             insts );
-    print("new-insts: ");
-    print(new-insts);
-    print("\n");
-    set-register-contents!(machine, "pc", new-insts);
-
 }
 
-def make-instruction(text) {
-    new_pair = pair(text, nil);
-    print("è°ƒç”¨make-instruction()ï¼Œæ–°åºå¯¹ä¸ºï¼š");
-    print(new_pair);
-    print("\n");
-    new_pair;
-}
+def make-instruction(text) 
+    pair(text, nil);
 
 def instruction-text(inst)
     car(inst);
-def instruction-execution-proc(inst) 
+def instruction-execution-proc(inst)
     cdr(inst);
+def set-instruction-execution-proc!(inst, proc)
+    set-cdr!(inst, proc);
 
-def set-instruction-execution-proc!(inst, proc) {
-    print("set-instruction-execution-proc!\n");
-    set-cdr!(&inst, proc);
-    print("inst: ");
-    print(inst);
-    print("\n");
-    print("proc: ");
-    print(proc);
-    print("\n");
-}
-
-def make-label-entry(label-name, insts) {
-    new_pair = pair(label-name, insts);
-    print("è°ƒç”¨make-label-entry()ï¼Œæ–°åºå¯¹ä¸ºï¼š");
-    print(new_pair);
-    print("\n");
-    new_pair;
-}
+def make-label-entry(label-name, insts)
+    pair(label-name, insts);
 
 def lookup-label(labels, label-name) {
     val = assoc(label-name, labels);
@@ -469,18 +401,9 @@ def lookup-label(labels, label-name) {
 
 
 
-# ======================== ä¸ºæŒ‡ä»¤ç”Ÿæˆæ‰§è¡Œè¿‡ç¨‹ ===================================
+# ======================== ÎªÖ¸ÁîÉú³ÉÖ´ĞĞ¹ı³Ì ===================================
 
 def make-execution-procedure(inst, labels, machine, pc, flag, stack, ops) {
-    print("\n\nä¸ºæŒ‡ä»¤ç”Ÿæˆæ‰§è¡Œè¿‡ç¨‹make-execution-procedure()\n");
-    print("inst: ");
-    print(inst);
-    print("\n");
-
-    print("labels: ");
-    print(labels);
-    print("\n");
-
     if (car(inst) == "assign")
         make-assign(inst, machine, labels, ops, pc);
     else if (car(inst) == "test")
@@ -572,7 +495,6 @@ def make-primitive-exp(exp, machine, labels) {
 
 
 def make-assign(inst, machine, labels, operations, pc) {
-    print("\nç”Ÿæˆassignè¿‡ç¨‹\n");
     target = get-register(machine, assign-reg-name(inst));
     value-exp = assign-value-exp(inst);
 
@@ -586,11 +508,11 @@ def make-assign(inst, machine, labels, operations, pc) {
     }
 }
 
-# ä»assignæŒ‡ä»¤é‡Œæå–ç›®æ ‡å¯„å­˜å™¨çš„åå­—
+# ´ÓassignÖ¸ÁîÀïÌáÈ¡Ä¿±ê¼Ä´æÆ÷µÄÃû×Ö
 def assign-reg-name(assign-instruction)
     cadr(assign-instruction);
 
-# æå–å€¼è¡¨è¾¾å¼
+# ÌáÈ¡Öµ±í´ïÊ½
 def assign-value-exp(assign-instruction)
     cddr(assign-instruction);
 
@@ -620,20 +542,19 @@ def assign(register-name, source) list("assign", register-name, source);
 
 
 
-# =================== å¯åŠ¨è™šæ‹Ÿæœº ===================================
+# =================== Æô¶¯ĞéÄâ»ú ===================================
 
-# æ–°å»ºä¸€ä¸ªèµ‹å€¼æœºå™¨
+# ĞÂ½¨Ò»¸ö¸³Öµ»úÆ÷
 assign-machine = make-machine(
         list("a", "b"),
         list( list("=", op-assign ) ),
         list("_init", assign("b", reg("a")), "_done")
     );
 
-print("è®¾ç½®å¯„å­˜å™¨açš„å€¼ä¸º 5\n");
-set-register-contents!(assign-machine, "a", 5);
-print("å¯åŠ¨è™šæ‹Ÿæœº\n");
-start(assign-machine);
-print("æŸ¥çœ‹å¯„å­˜å™¨bçš„å€¼ä¸º: ");
-get-register-contents(assign-machine, "b");
-print("\n");
+# Æô¶¯ĞéÄâ»ú
+
+# ÉèÖÃ¼Ä´æÆ÷aµÄÖµÎª 5;
+# set-register-contents!(assign-machine, "a", 5);
+# start(assign-machine);
+# get-register-contents(assign-machine, "b");
 

@@ -120,7 +120,8 @@ done:
     file_contents = DBG_NEW std::string;
     root = DBG_NEW Token(TOKEN_FLAG_IS_PROG);
 
-    std::ifstream file("example\\machine-with-register\\machine.nl");
+    //std::ifstream file("example\\machine-with-register\\machine.nl");
+    std::ifstream file("example\\hello.nl");
 
     if (file.is_open()) {
         // Read the file line by line and append to the content

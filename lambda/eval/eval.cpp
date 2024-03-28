@@ -312,9 +312,15 @@ static Value* eval_assignment(TokenAssign* exp, Environment* env)
 
 // 如果lambda的env在当前环境的待回收的环境序列中，解释器也不回收当前环境。这种情况用于应对局部环境嵌套
 static bool match_env(std::vector<Environment*>* env_sequence, Environment* lambda_local_env){
+
 	for (auto item_env = env_sequence->begin(); item_env != env_sequence->end(); item_env++)
-		if (reinterpret_cast<uint64_t>(*item_env) == reinterpret_cast<uint64_t>(lambda_local_env))
+		// 如果lambda的执行环境在当前环境的子环境序列，匹配成功
+		// 递归检索。
+		if (reinterpret_cast<uint64_t>(*item_env) == reinterpret_cast<uint64_t>(lambda_local_env)
+			|| match_env(&(*item_env)->env_sequence, lambda_local_env)
+			)
 			return true;
+
 	return false;
 };
 
@@ -393,7 +399,7 @@ static Value* eval_calls(TokenCalls* calls, std::vector<Value*>& args_list, Envi
 			if (reinterpret_cast<uint64_t>(v_lambda->env) == reinterpret_cast<uint64_t>(new_env)
 				|| match_env(&new_env->env_sequence, v_lambda->env)) 
 				// 添加到它的父环境中的环境序列
-				env->env_sequence.push_back(new_env);
+				env->parent->env_sequence.push_back(new_env);
 			else
 				delete new_env;
 		}
@@ -407,7 +413,8 @@ static Value* eval_calls(TokenCalls* calls, std::vector<Value*>& args_list, Envi
 
 static Value* eval_if(TokenIf* token_if, Environment* env)
 {
-	Value* result = eval(token_if->cond, env);
+	Value* exp_result = eval(token_if->cond, env);
+	Value* if_result = NULL;
 
 	/*
 
@@ -423,12 +430,17 @@ static Value* eval_if(TokenIf* token_if, Environment* env)
 	//	result->value.logical = 0x1;
 
 	TokenBranch* branch = (TokenBranch*)token_if->branch;
-	if (result->value.logical)
-		result = eval(branch->then_branch, env);
+	if (exp_result->value.logical)
+		exp_result = eval(branch->then_branch, env);
 	else
 		if (branch->else_branch)
-			result = eval(branch->else_branch, env);
-	return result;
+			exp_result = eval(branch->else_branch, env);
+	if_result = DBG_NEW Value(exp_result->flag);
+	if_result->value.bits = exp_result->value.bits;
+	exp_result->flag = VALUE_IS_NIL;
+	//if_result = DBG_NEW Value(exp_result);
+	env->parent->constant.push_back(if_result);
+	return if_result;
 }
 
 /*

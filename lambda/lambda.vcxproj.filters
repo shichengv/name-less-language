@@ -73,6 +73,12 @@
     <Filter Include="资源文件\example\machine-with-register">
       <UniqueIdentifier>{98bb6080-24f5-4995-97e4-c1a89e295c17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\stdlib\sys">
+      <UniqueIdentifier>{ff432400-c77a-46a0-972e-7ae3c0f29fa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\stdlib\sys">
+      <UniqueIdentifier>{c9f48380-f9d9-4386-a561-4ec8b1a064f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lambda.cpp">
@@ -171,6 +177,12 @@
     <ClCompile Include="stdlib\built-in\pair\built_in_cddr.cpp">
       <Filter>源文件\stdlib\built-in\pair</Filter>
     </ClCompile>
+    <ClCompile Include="stdlib\sys\sys.cpp">
+      <Filter>源文件\stdlib\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="stdlib\sys\get_sys_metrics.cpp">
+      <Filter>源文件\stdlib\sys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -247,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="configure\error_log.h">
       <Filter>头文件\configure</Filter>
+    </ClInclude>
+    <ClInclude Include="stdlib\sys\sys.h">
+      <Filter>头文件\stdlib\sys</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

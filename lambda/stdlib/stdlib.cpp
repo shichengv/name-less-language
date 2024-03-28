@@ -1,6 +1,7 @@
 #include "stdlib.h"
 #include "built-in/built_in.h"
 #include "io/io.h"
+#include "sys/sys.h"
 
 /*
 
@@ -46,6 +47,8 @@ void stdlib_init(std::unordered_map<std::string, Value*>* scope)
 
 		register_func(scope, "typeid", STDLIB_BUILT_IN, BUILT_IN_TYPEID);
 
+		register_func(scope, "get-sys-metrics", STDLIB_SYS, SYS_GET_SYS_METRICS);
+
 }
 
 void stdlib_clean()
@@ -63,6 +66,9 @@ Value* calls_stdlib_func(uint64_t func_addr, std::vector<Value*>* args_list)
 		break;
 	case STDLIB_IO:
 		stdlib_result = calls_stdlib_io_func(GET_FUNC_INDEX(func_addr), args_list);
+		break;
+	case STDLIB_SYS:
+		stdlib_result = calls_stdlib_sys_func(GET_FUNC_INDEX(func_addr), args_list);
 		break;
 	default:
 		break;

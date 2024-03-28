@@ -25,6 +25,7 @@
 
 #ifdef WINDOWS
 #include <Windows.h>
+#include <tchar.h>
 #include <io.h>
 #include <fcntl.h>
 

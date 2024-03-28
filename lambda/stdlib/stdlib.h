@@ -7,6 +7,7 @@ enum ENUM_STDLIB_FUNC
 	STDLIB_BUILT_IN = 0,
 	STDLIB_IO,
 	STDLIB_FS,
+	STDLIB_SYS,
 };
 
 #define GET_STDLIB_INDEX(func_addr)				(func_addr >> 32)

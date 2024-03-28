@@ -354,3 +354,24 @@ set-cdr!( &pair, value );
 #### print
 
 ### fs库
+
+### sys库
+
+***
+
+#### get-sys-metrics
+
+```
+get-sys-metrics();
+```
+
+例程描述：
+&emsp; 获取系统显示器信息。
+
+参数：
+- 无
+
+返回值：
+&emsp; 存储显示信息的字符串。
+
+*** 

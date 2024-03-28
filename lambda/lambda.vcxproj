@@ -170,6 +170,8 @@
     <ClCompile Include="stdlib\io\io.cpp" />
     <ClCompile Include="stdlib\io\io_print.cpp" />
     <ClCompile Include="stdlib\stdlib.cpp" />
+    <ClCompile Include="stdlib\sys\get_sys_metrics.cpp" />
+    <ClCompile Include="stdlib\sys\sys.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="analyzer\input_stream.h" />
@@ -197,6 +199,7 @@
     <ClInclude Include="stdlib\fs\fs.h" />
     <ClInclude Include="stdlib\io\io.h" />
     <ClInclude Include="stdlib\stdlib.h" />
+    <ClInclude Include="stdlib\sys\sys.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="example\error.nl" />

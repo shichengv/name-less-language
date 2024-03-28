@@ -72,4 +72,36 @@
 # print(factorial_recursion(6) + "\n");
 # print(factorial_iteration(6) + "\n");
 
+# 5. 过程作为数据
+# Scheme
+# (define (main-proc num proc-1)
+#     (if (eq? num 0)
+#         (proc-1 num)
+#         (main-proc (- num 1) (lambda(num)
+#             (begin (display num) (newline) (proc-1 (+ num 1)))))))
+# 
+# (main-proc 5 (lambda(num) (begin (display "Original sub-proc") (newline) (display num))))
+
+# def main-proc(num, sub-proc) {
+#     if num == 0
+#     then 
+#         sub-proc(num);
+#     else 
+#         main-proc(
+#             num - 1,
+#             lambda(num) {
+#                 print( num + "\n" );
+#                 sub-proc( num + 1);
+#             }
+#         )
+# }
+# 
+# main-proc(
+#     5,
+#     lambda(num) {
+#         print("Origianl sub-proc\n");
+#         print(num + "\n");
+#     }
+# );
+
 print("hello, world\n");
